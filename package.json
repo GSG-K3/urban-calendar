@@ -4,29 +4,50 @@
   "description": "**Urban Natural** is a small furniture company with a showroom located in Bloomfield, New Jersey. They sell products made from the healthiest, safest, most durable materials available- free from harmful chemicals.",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon ./server/index.js",
-    "client-install": "cd client && npm install",
+    "lint": "eslint . --fix",
+    "start": "NODE_ENV=production node Server/index.js",
+    "project-setup": "npm install && cd client && npm install",
+    "heroku-postbuild": "cd client && npm install && npm run build",
+    "server": "nodemon Server/index.js",
     "client": "cd client && npm start",
-    "build": "cd client && npm run build",
-    "dev": "concurrently \"npm run start\" \"npm run client\"",
-    "heroku-postbuild": "cd client && npm install && npm run build"
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/GSG-K3/urban-calendar.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "team4",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/GSG-K3/urban-calendar/issues"
   },
   "homepage": "https://github.com/GSG-K3/urban-calendar#readme",
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-developit": "^1.2.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-flowtype": "^5.2.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
+    "eslint-plugin-node": "^9.2.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.14.3",
+    "eslint-plugin-react-hooks": "^4.0.5",
+    "eslint-plugin-standard": "^4.0.1",
+    "nodemon": "^2.0.2",
+    "prettier": "^1.19.1"
+  },
   "dependencies": {
     "concurrently": "^5.2.0",
     "env2": "^2.2.2",
     "express": "^4.17.1",
     "nodemon": "^2.0.4",
     "pg": "^8.2.1"
+  },
+  "eslintConfig": {
+    "extends": "eslint-config-developit"
   }
 }
