@@ -5,10 +5,10 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint . --fix",
-    "start": "NODE_ENV=production node Server/index.js",
+    "start": "NODE_ENV=production node server/index.js",
     "project-setup": "npm install && cd client && npm install",
     "heroku-postbuild": "cd client && npm install && npm run build",
-    "server": "nodemon Server/index.js",
+    "server": "nodemon server/index.js",
     "client": "cd client && npm start",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
