@@ -39,7 +39,7 @@ For Customers:
 
 ## Database schema
 
-![database1](https://user-images.githubusercontent.com/55299644/86111331-4e20f200-bacf-11ea-867f-34ea9594e743.png)
+![Appointment App database](https://user-images.githubusercontent.com/54964739/86388515-9beb5500-bc9d-11ea-905b-7e89d387dccd.png)
 
 ## How to run the project?
 
