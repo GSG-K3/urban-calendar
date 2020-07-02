@@ -1,4 +1,4 @@
-# Urban Nature Calendar
+# Urban Nature Calendar [![Build Status](https://travis-ci.org/GSG-K3/urban-calendar.svg?branch=master)](https://travis-ci.org/GSG-K3/urban-calendar)
 
 **Urban Natural** is a small furniture company with a showroom located in Bloomfield, New Jersey. They sell products made from the healthiest, safest, most durable materials available- free from harmful chemicals.
 
