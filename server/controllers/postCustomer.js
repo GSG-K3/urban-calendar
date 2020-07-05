@@ -7,7 +7,6 @@ module.exports = (req, res) => {
   if (!firstName || !lastName || !phone || !email) {
     return res.status(400).json({
       message: 'There is one item or more missing. Please filled it!',
-      status: 400,
     });
   }
   postCustomer(data)
