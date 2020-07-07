@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import LandingPage from './components/layouts/LandingPage';
-import Checkout from './components/commonComponents/Tabs';
+import Checkout from './components/commonComponents/TabsCheckout';
 
 const App = () => (
   <Fragment>
