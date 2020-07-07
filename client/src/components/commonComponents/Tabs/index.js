@@ -1,84 +1,45 @@
-import React, { useState, Fragment } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Paper from "@material-ui/core/Paper";
-import Stepper from "@material-ui/core/Stepper";
-import Step from "@material-ui/core/Step";
-import StepLabel from "@material-ui/core/StepLabel";
-import Button from "@material-ui/core/Button";
-import Link from "@material-ui/core/Link";
-import Typography from "@material-ui/core/Typography";
-import ConatctInfo from "./ConstactInfo";
-import Questions from "./Questions";
-import Book from "./Book";
+import React, { useState, Fragment } from 'react';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Paper from '@material-ui/core/Paper';
+import Stepper from '@material-ui/core/Stepper';
+import Step from '@material-ui/core/Step';
+import StepLabel from '@material-ui/core/StepLabel';
+import Button from '@material-ui/core/Button';
+import Link from '@material-ui/core/Link';
+import Typography from '@material-ui/core/Typography';
+import useStyles from './style';
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       <Link color="inherit" href="https://www.urbannatural.com/">
         Urban natural
-      </Link>{" "}
+      </Link>{' '}
       {new Date().getFullYear()}
-      {"."}
+      {'.'}
     </Typography>
   );
 }
 
-const useStyles = makeStyles((theme) => ({
-  appBar: {
-    position: "relative",
-  },
-   layout: {
-    width: "auto",
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
-      width: 600,
-      marginLeft: "auto",
-      marginRight: "auto",
-    },
-  },
-  paper: {
-    marginTop: theme.spacing(3),
-    marginBottom: theme.spacing(3),
-    padding: theme.spacing(2),
-    [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
-      marginTop: theme.spacing(6),
-      marginBottom: theme.spacing(6),
-      padding: theme.spacing(3),
-    },
-  },
-  stepper: {
-    padding: theme.spacing(3, 0, 5),
-    color: "90B27A",
-  },
-  buttons: {
-    display: "flex",
-    justifyContent: "flex-end",
-  },
-  button: {
-    marginTop: theme.spacing(3),
-    marginLeft: theme.spacing(1),
-  },
-}));
+const tabs = ['Contact Info', 'Questions', 'Book'];
 
-const tabs = ["Info", "Questions", "Book"];
 function getTabContent(tab) {
   switch (tab) {
     case 0:
-      return <ConatctInfo />;
+      // TODO: each return must call its relevant tab page component
+      return <>Contact Info </>;
     case 1:
-      return <Questions />;
+      return <>Questions </>;
     case 2:
-      return <Book />;
+      return <>Booking </>;
     default:
-      throw new Error("Unknown tab");
+      throw new Error('Unknown tab');
   }
 }
 
-export default function Checkout() {
+const Checkout = () => {
   const classes = useStyles();
   const [activeTab, setActiveTab] = useState(0);
   const handleNext = () => {
@@ -116,9 +77,18 @@ export default function Checkout() {
                 <Typography variant="h5" gutterBottom>
                   Thank you!
                 </Typography>
+                <Typography variant="h6" gutterBottom>
+                  Our health and saftey rules
+                </Typography>
                 <Typography variant="subtitle1">
-                  We have emailed your order confirmation, and will send you an
-                  update when your order has shipped.
+                  1. All visitors must wear face masks before entering the
+                  building.
+                  <br />
+                  2. No more than 3 People allowed to be in the showroom at
+                  once.
+                  <br />
+                  3. Make sure to follow the American Red Cross Instuctions of
+                  Saftey.
                 </Typography>
               </Fragment>
             ) : (
@@ -132,11 +102,11 @@ export default function Checkout() {
                   )}
                   <Button
                     variant="contained"
-                    color='primary'
+                    color="primary"
                     onClick={handleNext}
                     className={classes.button}
                   >
-                    {activeTab === tabs.length - 1 ? "Confirm" : "Next"}
+                    {activeTab === tabs.length - 1 ? 'Confirm' : 'Next'}
                   </Button>
                 </div>
               </Fragment>
@@ -147,4 +117,6 @@ export default function Checkout() {
       </main>
     </Fragment>
   );
-}
+};
+
+export default Checkout;
