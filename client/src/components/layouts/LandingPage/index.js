@@ -1,8 +1,8 @@
 import React from 'react';
 import { Typography, Button, Grid } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import image from './image.svg';
-import footer from './footer.svg';
+import image from '../../../assets/image.svg';
+import footer from '../../../assets/footer.svg';
 import useStyles from './style.js';
 
 const LandingPage = () => {
@@ -22,7 +22,7 @@ const LandingPage = () => {
               <Button
                 variant="contained"
                 color="primary"
-                className={classes.button}
+                className={classes.bookappointment}
               >
                 Book an Appointment
               </Button>

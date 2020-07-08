@@ -10,15 +10,15 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   description: {
-    marginLeft: '-35px',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'center',
     marginBottom: '15px',
     [theme.breakpoints.up(950 + theme.spacing(2) * 2)]: {
+      marginLeft: '-2rem',
       marginBottom: 'none',
-      marginTop: '-40px',
+      marginTop: '-2rem',
     },
   },
   link: {
@@ -36,11 +36,11 @@ const useStyles = makeStyles((theme) => ({
       justifyContent: 'space-around',
     },
   },
-  button: {
+  bookappointment: {
     marginTop: '20px',
-    marginLeft: '-50px',
     [theme.breakpoints.up(950 + theme.spacing(2) * 2)]: {
-      marginLeft: '-280px',
+      marginLeft: '-1rem',
+      marginRight: '20rem',
       marginTop: '30px',
     },
   },
