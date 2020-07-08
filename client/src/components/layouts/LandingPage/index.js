@@ -1,5 +1,6 @@
 import React from 'react';
 import { Typography, Button, Grid } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import image from './image.svg';
 import footer from './footer.svg';
 import useStyles from './style.js';
@@ -17,13 +18,15 @@ const LandingPage = () => {
               intake form before booking an appointment.To begin this quick and
               easy process, click Book Appointment below.
             </Typography>
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.button}
-            >
-              Book an Appointment
-            </Button>
+            <Link to="/guideline" className={classes.link}>
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+              >
+                Book an Appointment
+              </Button>
+            </Link>
           </div>
           <img src={image} className={classes.image} />
         </div>

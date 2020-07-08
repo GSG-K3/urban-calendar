@@ -21,6 +21,9 @@ const useStyles = makeStyles((theme) => ({
       marginTop: '-40px',
     },
   },
+  link: {
+    color: '#90B27A',
+  },
   landing: {
     display: 'flex',
     flexDirection: 'column',
@@ -35,9 +38,9 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     marginTop: '20px',
-    marginLeft: '-100px',
+    marginLeft: '-50px',
     [theme.breakpoints.up(950 + theme.spacing(2) * 2)]: {
-      marginLeft: '-340px',
+      marginLeft: '-280px',
       marginTop: '30px',
     },
   },
