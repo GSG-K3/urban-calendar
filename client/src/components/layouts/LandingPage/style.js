@@ -29,11 +29,19 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-
     [theme.breakpoints.up(950 + theme.spacing(2) * 2)]: {
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'space-around',
+    },
+  },
+  image: {
+    width: '60%',
+    marginTop: '10px',
+    marginBottom: '20px',
+    [theme.breakpoints.up(950 + theme.spacing(2) * 2)]: {
+      marginRight: '20px',
+      width: '40%',
     },
   },
   bookappointment: {
@@ -46,15 +54,6 @@ const useStyles = makeStyles((theme) => ({
   },
   footer: {
     width: '100%',
-  },
-  image: {
-    width: '60%',
-    marginTop: '10px',
-    marginBottom: '20px',
-    [theme.breakpoints.up(950 + theme.spacing(2) * 2)]: {
-      marginRight: '20px',
-      width: '40%',
-    },
   },
 }));
 
