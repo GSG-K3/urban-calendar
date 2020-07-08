@@ -1,8 +1,5 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, Fragment } from "react";
 import {
-  CssBaseline,
-  AppBar,
-  Toolbar,
   Paper,
   Stepper,
   Step,
@@ -10,32 +7,33 @@ import {
   Button,
   Typography,
   Link,
-} from '@material-ui/core';
-import useStyles from './style';
+} from "@material-ui/core";
+import useStyles from "./style";
+import Questions from "../../layouts/BeforeVisit";
 
 const Copyright = () => (
   <Typography variant="body2" color="textSecondary" align="center">
     <Link color="inherit" href="https://www.urbannatural.com/">
       Urban natural
-    </Link>{' '}
+    </Link>{" "}
     {new Date().getFullYear()}
-    {'.'}
+    {"."}
   </Typography>
 );
 
-const tabs = ['Contact Info', 'Questions', 'Book'];
+const tabs = ["Contact Info", "Questions", "Book"];
 
 const getTabContent = (tab) => {
   switch (tab) {
     case 0:
       // TODO: each return must call its relevant tab page component
-      return <>Contact Info </>;
+      return <Questions />;
     case 1:
-      return <>Questions </>;
+      return <>Contact Info </>;
     case 2:
       return <>Booking </>;
     default:
-      throw new Error('Unknown tab');
+      throw new Error("Unknown tab");
   }
 };
 
@@ -50,43 +48,36 @@ const TabsCheckout = () => {
   };
   return (
     <Fragment>
-      <CssBaseline />
-      <AppBar position="absolute" color="default" className={classes.appBar}>
-        <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
-            Urban Natural
-          </Typography>
-        </Toolbar>
-      </AppBar>
-
       <main className={classes.layout}>
-        <Paper className={classes.paper}>
+        <Paper elevation={10} className={classes.paper}>
           <Typography component="h1" variant="h4" align="center">
             Checkout
           </Typography>
           <Stepper activeStep={activeTab} className={classes.stepper}>
             {tabs.map((label) => (
               <Step key={label}>
-                <StepLabel>{label}</StepLabel>
+                <StepLabel variant="colorInherit">{label}</StepLabel>
               </Step>
             ))}
           </Stepper>
           <Fragment>
             {activeTab === tabs.length ? (
               <Fragment>
-                <Typography variant="h6" gutterBottom>
+                <Typography variant="h5" gutterBottom>
                   Thank you!
                 </Typography>
                 <Typography variant="h6" gutterBottom>
                   Our health and saftey rules
                 </Typography>
-                <Typography variant="subtitle1">
+                <Typography variant="body1">
                   1. All visitors must wear face masks before entering the
                   building.
-                  <br />
+                </Typography>
+                <Typography variant="body1">
                   2. No more than 3 People allowed to be in the showroom at
                   once.
-                  <br />
+                </Typography>
+                <Typography variant="body1">
                   3. Make sure to follow the American Red Cross Instuctions of
                   Saftey.
                 </Typography>
@@ -106,7 +97,7 @@ const TabsCheckout = () => {
                     onClick={handleNext}
                     className={classes.button}
                   >
-                    {activeTab === tabs.length - 1 ? 'Confirm' : 'Next'}
+                    {activeTab === tabs.length - 1 ? "Confirm" : "Next"}
                   </Button>
                 </div>
               </Fragment>

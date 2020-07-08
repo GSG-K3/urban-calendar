@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState } from "react";
 import {
   Typography,
   Radio,
@@ -7,8 +7,8 @@ import {
   FormControl,
   Checkbox,
   FormGroup,
-} from '@material-ui/core';
-import style from './style';
+} from "@material-ui/core";
+import style from "./style";
 
 const BeforeVisit = () => {
   const classes = style();
@@ -17,22 +17,20 @@ const BeforeVisit = () => {
   const [covid, setCovid] = useState();
 
   const handleChangeMeeting = (event) => {
-    setMeeting(event.target.meeting);
+    setMeeting(event.target.value);
   };
   const handleChangeCovid = (event) => {
-    setCovid(event.target.covid);
+    setCovid(event.target.value);
   };
   const handleChangeFurniture = (event) => {
-    setFurniture(event.target.furniture);
+    setFurniture(event.target.value);
   };
 
   return (
     <Fragment>
-      <Typography varient="h5" gutterBottom>
-        Before visit
-      </Typography>
-      <Typography varient="h6" gutterBottom>
-        Would you like to reserve a virtual appointment or in person?{' '}
+      <Typography variant="h5">Before visit</Typography>
+      <Typography variant="h6">
+        Would you like to reserve a virtual appointment or in person?
       </Typography>
       <FormControl component="fieldset">
         <RadioGroup
@@ -53,11 +51,12 @@ const BeforeVisit = () => {
           />
         </RadioGroup>
       </FormControl>
-      <Typography varient="h6" gutterBottom>
-        What are you interested in viewing? Select all that apply.
+      <Typography variant="h6" gutterBottom>
+        What are you interested in viewing? select all that apply
       </Typography>
+    
       <FormControl component="fieldset" className={classes.formControl}>
-        <FormGroup>
+        <FormGroup variant="body2">
           <FormControlLabel
             control={
               <Checkbox
@@ -79,7 +78,7 @@ const BeforeVisit = () => {
               />
             }
             label="Dining"
-          />{' '}
+          />
           <FormControlLabel
             control={
               <Checkbox
@@ -90,7 +89,7 @@ const BeforeVisit = () => {
               />
             }
             label="Living"
-          />{' '}
+          />{" "}
           <FormControlLabel
             control={
               <Checkbox
@@ -101,7 +100,7 @@ const BeforeVisit = () => {
               />
             }
             label="Office"
-          />{' '}
+          />{" "}
           <FormControlLabel
             control={
               <Checkbox
@@ -126,7 +125,7 @@ const BeforeVisit = () => {
           />
         </FormGroup>
       </FormControl>
-      <Typography varient="h6" gutterBottom>
+      <Typography variant="h6" gutterBottom>
         Have you been in contact within the last 14 days with anyone who has
         experienced any covid-symptoms?
       </Typography>
