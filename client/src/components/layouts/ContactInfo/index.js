@@ -1,7 +1,11 @@
 import React from 'react';
-import { TextField, Typography, Grid } from '@material-ui/core';
+import { Typography, Grid } from '@material-ui/core';
+import InputField from './InputField';
 
-const ContactInfo = () => {
+const ContactInfo = (props) => {
+  const {
+    formField: { fullName, phone, email, zipCode },
+  } = props;
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -9,42 +13,39 @@ const ContactInfo = () => {
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
-          <TextField
+          <InputField
             required
-            id="fullName"
-            label="Full Name"
-            name="fullName"
+            label={fullName.label}
+            name={fullName.name}
             variant="outlined"
             fullWidth
           />
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <TextField
+          <InputField
             required
-            id="phone"
-            label="Phone"
-            name="phone"
+            label={phone.label}
+            name={phone.name}
             variant="outlined"
             fullWidth
           />
         </Grid>
 
         <Grid item xs={12} sm={6}>
-          <TextField
-            id="email"
-            name="email"
-            label="Email"
+          <InputField
+            required
+            label={email.label}
+            name={email.name}
             variant="outlined"
             fullWidth
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField
+          <InputField
             required
-            id="zipCode"
-            name="zipCode"
-            label="Zip / Postal code"
+            label={zipCode.label}
+            name={zipCode.name}
             variant="outlined"
             fullWidth
           />
