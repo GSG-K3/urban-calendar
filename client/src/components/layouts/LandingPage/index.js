@@ -10,9 +10,9 @@ const LandingPage = () => {
   return (
     <div>
       <Grid item xs={12}>
-        <div className={classes.landing}>
-          <div className={classes.description}>
-            <Typography className={classes.text}>
+        <div className={classes.landingContainer}>
+          <div className={classes.landingContent}>
+            <Typography className={classes.description}>
               To prevent the spread of COVID-19 and reduce the potential risk of
               exposure to our staff and visitors, all visitors must complete an
               intake form before booking an appointment.To begin this quick and
@@ -28,7 +28,7 @@ const LandingPage = () => {
               </Button>
             </Link>
           </div>
-          <img src={image} className={classes.image} />
+          <img src={image} className={classes.landingImg} />
         </div>
       </Grid>
 

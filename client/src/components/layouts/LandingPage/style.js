@@ -1,20 +1,22 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-  text: {
+  description: {
     width: '80%',
     fontFamily: 'Quicksand',
     fontSize: '15px',
+    textAlign: 'justify',
     [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
       fontSize: '20px',
     },
   },
-  description: {
+  landingContent: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'flex-start',
     alignItems: 'center',
     marginBottom: '15px',
+    marginTop: '23px',
     [theme.breakpoints.up(950 + theme.spacing(2) * 2)]: {
       marginLeft: '1rem',
       marginRight: '7rem',
@@ -25,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   link: {
     color: '#90B27A',
   },
-  landing: {
+  landingContainer: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -35,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
       flexDirection: 'row',
     },
   },
-  image: {
+  landingImg: {
     width: '60%',
     marginTop: '10px',
     marginBottom: '20px',
@@ -45,6 +47,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   bookappointment: {
+    position: 'initial',
     marginTop: '20px',
     [theme.breakpoints.up(950 + theme.spacing(2) * 2)]: {
       marginLeft: '2rem',
