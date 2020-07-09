@@ -1,8 +1,5 @@
 import React, { useState, Fragment } from 'react';
 import {
-  CssBaseline,
-  AppBar,
-  Toolbar,
   Paper,
   Stepper,
   Step,
@@ -11,6 +8,7 @@ import {
   Typography,
   Link,
 } from '@material-ui/core';
+import ContactInfo from '../../layouts/ContactInfo';
 import useStyles from './style';
 
 const Copyright = () => (
@@ -29,7 +27,7 @@ const getTabContent = (tab) => {
   switch (tab) {
     case 0:
       // TODO: each return must call its relevant tab page component
-      return <>Contact Info </>;
+      return <ContactInfo />;
     case 1:
       return <>Questions </>;
     case 2:
@@ -50,17 +48,8 @@ const TabsCheckout = () => {
   };
   return (
     <Fragment>
-      <CssBaseline />
-      <AppBar position="absolute" color="default" className={classes.appBar}>
-        <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
-            Urban Natural
-          </Typography>
-        </Toolbar>
-      </AppBar>
-
       <main className={classes.layout}>
-        <Paper className={classes.paper}>
+        <Paper className={classes.paper} elevation={10}>
           <Typography component="h1" variant="h4" align="center">
             Checkout
           </Typography>
