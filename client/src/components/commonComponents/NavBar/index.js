@@ -16,9 +16,9 @@ import { Link } from 'react-router-dom';
 import SearchIcon from '@material-ui/icons/Search';
 import MenuIcon from '@material-ui/icons/Menu';
 import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
-import logo from '../../../assests/logo.svg';
-import blog from '../../../assests/downearthblog.webp';
 import { v4 as uuidv4 } from 'uuid';
+import logo from '../../../assets/logo.svg';
+import blog from '../../../assets/downearthblog.webp';
 import useStyles from './style.js';
 
 const getTabs = () => [
@@ -111,8 +111,8 @@ const NavBar = () => {
               <Paper className={classes.menuList}>
                 <ClickAwayListener onClickAway={handleClose}>
                   <MenuList autoFocusItem={open} id="menu-list-grow">
-                    {tabs.map((tab) =>
-                      tab === 'BOOK A VISIT' ? (
+                    {tabs.map((tab) => {
+                      return tab === 'BOOK A VISIT' ? (
                         <MenuItem
                           onClick={handleClose}
                           className={classes.bookTab}
@@ -126,8 +126,8 @@ const NavBar = () => {
                         <MenuItem onClick={handleClose} key={uuidv4()}>
                           {tab}
                         </MenuItem>
-                      ),
-                    )}
+                      );
+                    })}
                   </MenuList>
                 </ClickAwayListener>
               </Paper>
@@ -139,14 +139,9 @@ const NavBar = () => {
         <SearchIcon />
       </Box>
       <List className={classes.list}>
-        <Box
-          display="flex"
-          justifyContent="center"
-          width={1}
-          alignItems="center"
-        >
-          {tabs.map((tab) =>
-            tab === 'BOOK A VISIT' ? (
+        <Box display="flex" justifyContent="space-around" alignItems="center">
+          {tabs.map((tab) => {
+            return tab === 'BOOK A VISIT' ? (
               <ListItem key={uuidv4()}>
                 <Link to={'/guideline'} className={classes.bookTab}>
                   {tab}
@@ -154,8 +149,8 @@ const NavBar = () => {
               </ListItem>
             ) : (
               <ListItem key={uuidv4()}>{tab}</ListItem>
-            ),
-          )}
+            );
+          })}
         </Box>
       </List>
       <Typography variant="caption" className={classes.pagePath}>

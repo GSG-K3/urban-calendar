@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
     height: '60px',
   },
   list: {
+    fontSize: 12,
     [theme.breakpoints.up(600)]: {
       marginLeft: '65px',
     },
