@@ -32,6 +32,11 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(3),
     marginLeft: theme.spacing(1),
   },
+  buttonProgress: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+  },
 }));
 
 export default useStyles;
