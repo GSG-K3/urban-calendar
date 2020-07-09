@@ -51,15 +51,24 @@ const useStyles = makeStyles((theme) => ({
   },
   pagePath: {
     marginLeft: '20px',
+    display: 'flex',
+    justifyContent: 'center',
     [theme.breakpoints.up(600)]: {
       marginLeft: '80px',
       marginTop: '10px',
+      justifyContent: 'flex-start',
     },
   },
   description: {
+    display: 'flex',
+    justifyContent: 'center',
+    textAlign: 'center',
     marginLeft: '20px',
     [theme.breakpoints.up(600)]: {
       marginLeft: '80px',
+      display: 'flex',
+      justifyContent: 'flex-start',
+      textAlign: 'left',
     },
   },
 }));
