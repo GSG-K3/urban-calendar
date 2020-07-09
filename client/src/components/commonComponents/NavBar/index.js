@@ -1,56 +1,166 @@
-import React from 'react';
-import { List, ListItem, Typography, Grid } from '@material-ui/core';
-import logo from './logo.svg';
+import React, { useState, useRef } from 'react';
+import {
+  List,
+  ListItem,
+  Typography,
+  Box,
+  ClickAwayListener,
+  Grow,
+  Paper,
+  Popper,
+  MenuItem,
+  MenuList,
+  Divider,
+} from '@material-ui/core';
+import { Link } from 'react-router-dom';
+import SearchIcon from '@material-ui/icons/Search';
+import MenuIcon from '@material-ui/icons/Menu';
+import ShoppingCartOutlinedIcon from '@material-ui/icons/ShoppingCartOutlined';
+import { v4 as uuidv4 } from 'uuid';
+import logo from '../../../assets/logo.svg';
+import blog from '../../../assets/downearthblog.webp';
 import useStyles from './style.js';
+
+const getTabs = () => [
+  'COLLECTIONS',
+  'FURNITURE',
+  'ORIGINAL MATTRESSES',
+  'LIGHTING & ACCENTS',
+  'GET TO KNOW US',
+  'BOOK A VISIT',
+];
 
 const NavBar = () => {
   const classes = useStyles();
+  const tabs = getTabs();
+  const [open, setOpen] = useState(false);
+  const anchorRef = useRef(null);
+
+  const handleToggle = () => {
+    setOpen((prevOpen) => !prevOpen);
+  };
+
+  const handleClose = (event) => {
+    if (anchorRef.current && anchorRef.current.contains(event.target)) {
+      return;
+    }
+    setOpen(false);
+  };
+
   return (
     <div>
-      <Grid container>
-        <Grid item xs={12} sm={12} className={classes.header}>
-          <Typography>Our Showroom is Open! (By Appointment Only)</Typography>
-        </Grid>
-      </Grid>
-      <div className={classes.logo}>
-        <img src={logo} className={classes.img} />
-        urban natural home
-      </div>
+      <Typography variant="h6" className={classes.header}>
+        Our Showroom is Open! (By Appointment Only)
+      </Typography>
 
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        className={classes.subheader}
+      >
+        <Box p={1}>
+          <img src={blog} className={classes.blogImg} alt="blog" />
+        </Box>
+        <Box display="flex" justifyContent="flex-end" m={1} p={1}>
+          <Box p={1} display="flex">
+            <SearchIcon />
+            <Typography variant="subtitle1">Search</Typography>
+          </Box>
+          <Box p={1} display="flex">
+            <ShoppingCartOutlinedIcon />
+            <Typography variant="subtitle1">0 items</Typography>
+          </Box>
+        </Box>
+      </Box>
+
+      <Link to={'/'} className={classes.homeLink}>
+        <Box display="flex" alignItems="center" justifyContent="center">
+          <img src={logo} className={classes.logoImg} alt="logo" />
+          <Typography color="secondary" variant="h4">
+            urban natural home
+          </Typography>
+        </Box>
+      </Link>
+
+      <Box
+        display="flex"
+        justifyContent="space-around"
+        className={classes.icons}
+      >
+        <MenuIcon
+          ref={anchorRef}
+          aria-controls={open ? 'menu-list-grow' : undefined}
+          aria-haspopup="true"
+          onClick={handleToggle}
+        />
+        <Popper
+          open={open}
+          anchorEl={anchorRef.current}
+          role={undefined}
+          transition
+          disablePortal
+        >
+          {({ TransitionProps, placement }) => (
+            <Grow
+              {...TransitionProps}
+              style={{
+                transformOrigin:
+                  placement === 'bottom' ? 'center top' : 'center bottom',
+              }}
+            >
+              <Paper className={classes.menuList}>
+                <ClickAwayListener onClickAway={handleClose}>
+                  <MenuList autoFocusItem={open} id="menu-list-grow">
+                    {tabs.map((tab) => {
+                      return tab === 'BOOK A VISIT' ? (
+                        <MenuItem
+                          onClick={handleClose}
+                          className={classes.bookTab}
+                          key={uuidv4()}
+                        >
+                          <Link to={'/guideline'} className={classes.bookTab}>
+                            {tab}
+                          </Link>
+                        </MenuItem>
+                      ) : (
+                        <MenuItem onClick={handleClose} key={uuidv4()}>
+                          {tab}
+                        </MenuItem>
+                      );
+                    })}
+                  </MenuList>
+                </ClickAwayListener>
+              </Paper>
+            </Grow>
+          )}
+        </Popper>
+
+        <ShoppingCartOutlinedIcon />
+        <SearchIcon />
+      </Box>
       <List className={classes.list}>
-        <Grid container>
-          <Grid item sm={3} md={2}>
-            <ListItem> COLLECTIONS</ListItem>
-          </Grid>
-          <Grid item sm={3} md={2}>
-            <ListItem> FURNITURE</ListItem>
-          </Grid>
-          <Grid item sm={3} md={2}>
-            <ListItem> ORIGINAL MATTRESSES</ListItem>
-          </Grid>
-          <Grid item sm={3} md={2}>
-            <ListItem> LIGHTING & ACCENTS </ListItem>
-          </Grid>
-          <Grid item sm={3} md={2}>
-            <ListItem> GET TO KNOW US</ListItem>
-          </Grid>
-          <Grid item sm={3} md={2}>
-            <ListItem className={classes.item}> BOOK A VISIT</ListItem>
-          </Grid>
-        </Grid>
+        <Box display="flex" justifyContent="space-around" alignItems="center">
+          {tabs.map((tab) => {
+            return tab === 'BOOK A VISIT' ? (
+              <ListItem key={uuidv4()}>
+                <Link to={'/guideline'} className={classes.bookTab}>
+                  {tab}
+                </Link>
+              </ListItem>
+            ) : (
+              <ListItem key={uuidv4()}>{tab}</ListItem>
+            );
+          })}
+        </Box>
       </List>
+      <Typography variant="caption" className={classes.pagePath}>
+        Home / Book an Appointment to Visit Our Showroom
+      </Typography>
+      <Typography variant="h4" className={classes.description}>
+        Book an Appointment to Visit Our Showroom
+      </Typography>
 
-      <div>
-        <Typography className={classes.intruduction}>
-          Home / Book an Appointment to Visit Our Showroom
-        </Typography>
-        <Typography className={classes.bookappointment}>
-          Book an Appointment to Visit Our Showroom
-        </Typography>
-      </div>
-      <Grid xs={12}>
-        <hr className={classes.line} />
-      </Grid>
+      <Divider variant="middle" />
     </div>
   );
 };
