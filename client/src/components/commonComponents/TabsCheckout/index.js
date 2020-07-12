@@ -6,27 +6,17 @@ import {
   StepLabel,
   Button,
   Typography,
-  Link,
   CircularProgress,
 } from '@material-ui/core';
 import { Formik, Form } from 'formik';
-import useStyles from './style';
-import Questions from '../../layouts/BeforeVisit';
 import validationSchema from './FormModel/validationSchema';
 import checkoutFormModel from './FormModel/checkoutFormModel';
 import formInitialValues from './FormModel/formInitialValues';
-
 import ContactInfo from '../../layouts/ContactInfo';
-
-const Copyright = () => (
-  <Typography variant="body2" color="textSecondary" align="center">
-    <Link color="inherit" href="https://www.urbannatural.com/">
-      Urban natural
-    </Link>{' '}
-    {new Date().getFullYear()}
-    {'.'}
-  </Typography>
-);
+import Questions from '../../layouts/BeforeVisit';
+import Confirmation from '../../layouts/ConfirmationTab';
+import Copyright from '../Footer';
+import useStyles from './style';
 
 const steps = ['Contact Info', 'Questions', 'Book'];
 const { formId, formField } = checkoutFormModel;
@@ -50,12 +40,11 @@ const TabsCheckout = () => {
   const currentValidationSchema = validationSchema[activeStep];
 
   const isLastStep = activeStep === steps.length - 1;
-  const sleep = (ms) => {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  };
+  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   const submitForm = async (values, actions) => {
     await sleep(1000);
+    // eslint-disable-next-line max-len
     // alert here will be replaced with API post request to store the data into database when reserving the date
     alert(JSON.stringify(values, null, 2));
     actions.setSubmitting(false);
@@ -91,26 +80,7 @@ const TabsCheckout = () => {
           </Stepper>
           <Fragment>
             {activeStep === steps.length ? (
-              <Fragment>
-                <Typography variant="h5" gutterBottom>
-                  Thank you!
-                </Typography>
-                <Typography variant="h6" gutterBottom>
-                  Our health and saftey rules
-                </Typography>
-                <Typography variant="body1">
-                  1. All visitors must wear face masks before entering the
-                  building.
-                </Typography>
-                <Typography variant="body1">
-                  2. No more than 3 People allowed to be in the showroom at
-                  once.
-                </Typography>
-                <Typography variant="body1">
-                  3. Make sure to follow the American Red Cross Instuctions of
-                  Saftey.
-                </Typography>
-              </Fragment>
+              <Confirmation />
             ) : (
               <Formik
                 initialValues={formInitialValues}
