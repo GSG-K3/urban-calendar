@@ -2,13 +2,15 @@ const postCustomer = require('../database/queries/postCustomer');
 
 module.exports = (req, res) => {
   const data = req.body;
-  const { firstName, lastName, phone, email } = data;
-
-  if (!firstName || !lastName || !phone || !email) {
+  const { fullName, phone, email, zipCode, reserveDate } = data;
+  // check if the all text fields is filled.
+  if (!fullName || !phone || !email || !zipCode || !reserveDate) {
+    // if one of text fields is empty, show this message
     return res.status(400).json({
       message: 'There is one item or more missing. Please filled it!',
     });
   }
+  // if all text fields is full, add this data to a new row in database and show this message
   postCustomer(data)
     .then((response) => {
       if (response.rowCount === 1) {
