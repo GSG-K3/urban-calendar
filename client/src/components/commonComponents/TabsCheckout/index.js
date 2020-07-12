@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment } from 'react';
 import {
   Paper,
   Stepper,
@@ -7,61 +7,90 @@ import {
   Button,
   Typography,
   Link,
-} from "@material-ui/core";
-import useStyles from "./style";
-import Questions from "../../layouts/BeforeVisit";
+  CircularProgress,
+} from '@material-ui/core';
+import { Formik, Form } from 'formik';
+import useStyles from './style';
+import Questions from '../../layouts/BeforeVisit';
+import validationSchema from './FormModel/validationSchema';
+import checkoutFormModel from './FormModel/checkoutFormModel';
+import formInitialValues from './FormModel/formInitialValues';
+
+import ContactInfo from '../../layouts/ContactInfo';
 
 const Copyright = () => (
   <Typography variant="body2" color="textSecondary" align="center">
     <Link color="inherit" href="https://www.urbannatural.com/">
       Urban natural
-    </Link>{" "}
+    </Link>{' '}
     {new Date().getFullYear()}
-    {"."}
+    {'.'}
   </Typography>
 );
 
-const tabs = ["Contact Info", "Questions", "Book"];
+const steps = ['Contact Info', 'Questions', 'Book'];
+const { formId, formField } = checkoutFormModel;
 
-const getTabContent = (tab) => {
-  switch (tab) {
+const renderStepContent = (step) => {
+  switch (step) {
     case 0:
-      // TODO: each return must call its relevant tab page component
-      return <Questions />;
+      return <ContactInfo formField={formField} />;
     case 1:
-      return <>Contact Info </>;
+      return <Questions />;
     case 2:
       return <>Booking </>;
     default:
-      throw new Error("Unknown tab");
+      throw new Error('Unknown tab');
   }
 };
 
 const TabsCheckout = () => {
   const classes = useStyles();
-  const [activeTab, setActiveTab] = useState(0);
-  const handleNext = () => {
-    setActiveTab(activeTab + 1);
+  const [activeStep, setActiveStep] = useState(0);
+  const currentValidationSchema = validationSchema[activeStep];
+
+  const isLastStep = activeStep === steps.length - 1;
+  const sleep = (ms) => {
+    return new Promise((resolve) => setTimeout(resolve, ms));
   };
+
+  const submitForm = async (values, actions) => {
+    await sleep(1000);
+    // alert here will be replaced with API post request to store the data into database when reserving the date
+    alert(JSON.stringify(values, null, 2));
+    actions.setSubmitting(false);
+    setActiveStep(activeStep + 1);
+  };
+
+  const handleSubmit = (values, actions) => {
+    if (isLastStep) {
+      submitForm(values, actions);
+    } else {
+      setActiveStep(activeStep + 1);
+      actions.setTouched({});
+      actions.setSubmitting(false);
+    }
+  };
+
   const handleBack = () => {
-    setActiveTab(activeTab - 1);
+    setActiveStep(activeStep - 1);
   };
   return (
     <Fragment>
       <main className={classes.layout}>
-        <Paper elevation={10} className={classes.paper}>
+        <Paper className={classes.paper} elevation={10}>
           <Typography component="h1" variant="h4" align="center">
             Checkout
           </Typography>
-          <Stepper activeStep={activeTab} className={classes.stepper}>
-            {tabs.map((label) => (
+          <Stepper activeStep={activeStep} className={classes.stepper}>
+            {steps.map((label) => (
               <Step key={label}>
                 <StepLabel variant="colorInherit">{label}</StepLabel>
               </Step>
             ))}
           </Stepper>
           <Fragment>
-            {activeTab === tabs.length ? (
+            {activeStep === steps.length ? (
               <Fragment>
                 <Typography variant="h5" gutterBottom>
                   Thank you!
@@ -83,24 +112,42 @@ const TabsCheckout = () => {
                 </Typography>
               </Fragment>
             ) : (
-              <Fragment>
-                {getTabContent(activeTab)}
-                <div className={classes.buttons}>
-                  {activeTab !== 0 && (
-                    <Button onClick={handleBack} className={classes.button}>
-                      Back
-                    </Button>
-                  )}
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleNext}
-                    className={classes.button}
-                  >
-                    {activeTab === tabs.length - 1 ? "Confirm" : "Next"}
-                  </Button>
-                </div>
-              </Fragment>
+              <Formik
+                initialValues={formInitialValues}
+                validationSchema={currentValidationSchema}
+                onSubmit={handleSubmit}
+              >
+                {({ isSubmitting }) => (
+                  <Form id={formId}>
+                    {renderStepContent(activeStep)}
+
+                    <div className={classes.buttons}>
+                      {activeStep !== 0 && (
+                        <Button onClick={handleBack} className={classes.button}>
+                          Back
+                        </Button>
+                      )}
+                      <div>
+                        <Button
+                          disabled={isSubmitting}
+                          type="submit"
+                          variant="contained"
+                          color="primary"
+                          className={classes.button}
+                        >
+                          {isLastStep ? 'Book Now!' : 'Next'}
+                        </Button>
+                        {isSubmitting && (
+                          <CircularProgress
+                            size={24}
+                            className={classes.buttonProgress}
+                          />
+                        )}
+                      </div>
+                    </div>
+                  </Form>
+                )}
+              </Formik>
             )}
           </Fragment>
         </Paper>

@@ -4,57 +4,72 @@ const useStyles = makeStyles((theme) => ({
   header: {
     backgroundColor: '#000000',
     color: 'white',
-    display: 'flex',
-    height: '40px',
-    justifyContent: 'center',
-    alignItems: 'center',
+    padding: '5px 15px',
+    textAlign: 'center',
   },
-  logo: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: '20px',
-    fontFamily: 'Quicksand',
-    fontSize: '25px',
+  subheader: {
+    [theme.breakpoints.down(970)]: {
+      display: 'none',
+    },
   },
-  img: {
+  blogImg: {
+    width: '220px',
+  },
+  homeLink: {
+    textDecoration: 'none',
+  },
+  logoImg: {
     width: '60px',
     height: '60px',
   },
-
   list: {
-    fontSize: '12px',
-    [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
+    fontSize: 12,
+    [theme.breakpoints.up(600)]: {
       marginLeft: '65px',
     },
+    [theme.breakpoints.down(970)]: {
+      display: 'none',
+    },
   },
-  item: {
+  icons: {
+    display: 'none',
+    [theme.breakpoints.down(970)]: {
+      display: 'flex',
+      margin: '10px 0',
+    },
+  },
+  menuList: {
+    width: '100vw',
+  },
+  bookTab: {
     color: '#90B27B',
     fontWeight: 'bold',
-  },
-  intruduction: {
-    fontFamily: 'Quicksand',
-    marginLeft: '20px',
-    fontSize: '12px',
-    [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
-      marginLeft: '80px',
-      fontSize: '15px',
-      marginTop: '20px',
+    textDecoration: 'none',
+    '&:hover': {
+      textDecoration: 'underline',
     },
   },
-  bookappointment: {
-    fontSize: '18px',
-    fontFamily: 'Quicksand',
+  pagePath: {
     marginLeft: '20px',
-    [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
-      fontSize: '28px',
+    display: 'flex',
+    justifyContent: 'center',
+    [theme.breakpoints.up(600)]: {
       marginLeft: '80px',
+      marginTop: '10px',
+      justifyContent: 'flex-start',
     },
   },
-
-  line: {
-    width: '90vw',
+  description: {
+    display: 'flex',
+    justifyContent: 'center',
+    textAlign: 'center',
+    marginLeft: '20px',
+    [theme.breakpoints.up(600)]: {
+      marginLeft: '80px',
+      display: 'flex',
+      justifyContent: 'flex-start',
+      textAlign: 'left',
+    },
   },
 }));
 

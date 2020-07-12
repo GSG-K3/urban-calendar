@@ -7,6 +7,21 @@ const theme = createMuiTheme({
       dark: '#5E8554',
       contrastText: '#fff',
     },
+    secondary: {
+      main: '#333333',
+    },
+  },
+  typography: {
+    fontFamily: 'Montserrat',
+    h6: {
+      fontSize: 16,
+    },
+    h4: {
+      fontSize: 18,
+      '@media (min-width:970px)': {
+        fontSize: 30,
+      },
+    },
   },
   typography: {
     fontFamily: '"Montserrat",cursive',
