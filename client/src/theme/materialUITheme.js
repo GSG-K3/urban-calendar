@@ -17,7 +17,7 @@ const theme = createMuiTheme({
       fontSize: 16,
     },
     h4: {
-      fontSize: 20,
+      fontSize: 18,
       '@media (min-width:970px)': {
         fontSize: 30,
       },
