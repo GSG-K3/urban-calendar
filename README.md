@@ -4,12 +4,14 @@
 
 ## Heroku Link
 
-- [Heroku Link]
+ - [Heroku Link](https://urbancalendar.herokuapp.com/)
 
 ## Figma Link
 
 Checkout the Design
-[HERE](https://www.figma.com/file/HoRxhtr24UIomHNurCH6b7/Appointment-app?node-id=0%3A1)
+- [Desktop Application](https://www.figma.com/file/YQQSvG5DrJoJWaqlr8qpmd/urban-natural-home?node-id=0%3A1)
+
+- [Mobile Application](https://www.figma.com/file/HoRxhtr24UIomHNurCH6b7/Appointment-app?node-id=0%3A1)
 
 ## Problem
 
@@ -39,7 +41,8 @@ For Customers:
 
 ## Database schema
 
-![Appointment App database](https://user-images.githubusercontent.com/54964739/86388515-9beb5500-bc9d-11ea-905b-7e89d387dccd.png)
+![db_schema](https://user-images.githubusercontent.com/55299644/87243171-6d5b4000-c43c-11ea-86e1-f55225471f4a.png)
+
 
 ## How to run the project?
 
@@ -57,9 +60,31 @@ git clone https://github.com/GSG-K3/urban-calendar.git
  $ cd client
  $ npm i
  $ cd ..
- $ npm run dev
-```
 
+```
+- create database locally:
+
+```shell
+$ psql
+  CREATE DATABASE databasename;
+  CREATE USER username;
+  GRANT ALL PRIVILEGES ON DATABASE databasename TO username IDENTIFIED BY password;
+```
+- create config.env file in root and put in it:
+
+```shell
+DATABASE_URL= postgres://username:password@localhost:5432/databasename
+```
+- build database:
+
+```shell
+$ node server/database/dbBuild.js
+```
+- to run website:
+
+```shell
+ $ npm run dev
+ ```
 ## Used technologies:
 
 **Front End**:
