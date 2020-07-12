@@ -50,6 +50,10 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: 'rgba(144, 178, 123, 0.80)',
     },
   },
+  startLink: {
+    color: 'white',
+    textDecoration: 'none',
+  },
 }));
 
 export default useStyles;
