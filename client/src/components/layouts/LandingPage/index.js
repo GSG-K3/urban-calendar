@@ -28,11 +28,11 @@ const LandingPage = () => {
               </Button>
             </Link>
           </div>
-          <img src={image} className={classes.landingImg} />
+          <img src={image} className={classes.landingImg} alt="landing" />
         </div>
       </Grid>
 
-      <img src={footer} className={classes.footer} />
+      <img src={footer} className={classes.footer} alt="footer" />
     </div>
   );
 };

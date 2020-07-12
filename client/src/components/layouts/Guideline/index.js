@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import {
   Stepper,
   Step,
@@ -51,7 +52,9 @@ const Guideline = () => {
             ))}
           </Stepper>
           <Button variant="contained" className={classes.button}>
-            START
+            <Link to="/reservation" className={classes.startLink}>
+              START
+            </Link>
           </Button>
         </div>
       </Paper>
