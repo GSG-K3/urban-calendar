@@ -3,8 +3,8 @@ export default {
   formField: {
     fullName: {
       name: 'fullName',
-      label: 'full Name',
-      requiredErrorMsg: 'full name is required',
+      label: 'Full Name',
+      requiredErrorMsg: 'Full Name is required',
     },
     phone: {
       name: 'phone',
@@ -13,12 +13,12 @@ export default {
     },
     email: {
       name: 'email',
-      label: 'email',
-      requiredErrorMsg: 'email is required',
+      label: 'Email',
+      requiredErrorMsg: 'Email is required',
     },
     zipCode: {
       name: 'zipCode',
-      label: 'zip/Postal Code',
+      label: 'Zip/Postal Code',
       requiredErrorMsg: 'Zip/Postal Code is required',
     },
   },

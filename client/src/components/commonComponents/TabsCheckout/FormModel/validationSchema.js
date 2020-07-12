@@ -1,5 +1,6 @@
 import * as Yup from 'yup';
 import checkoutFormModel from './checkoutFormModel';
+
 const {
   formField: { fullName, phone, email, zipCode },
 } = checkoutFormModel;

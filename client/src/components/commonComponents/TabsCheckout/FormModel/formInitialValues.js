@@ -1,4 +1,5 @@
 import checkoutFormModel from './checkoutFormModel';
+
 const {
   formField: { fullName, phone, email, zipCode },
 } = checkoutFormModel;
