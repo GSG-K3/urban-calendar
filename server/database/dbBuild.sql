@@ -9,9 +9,10 @@ CREATE TABLE customer_info(
   phone NUMERIC NOT NULL,
   email VARCHAR(50) NOT NULL,
   zip_code NUMERIC NOT NULL,
-  reserve_date TIMESTAMP 
+  reserve_date TIMESTAMP NOT NULL
 
 );
+create unique index index_reserve_date on customer_info(reserve_date);
 
 --example
 INSERT INTO customer_info(full_name, phone, email,zip_code,reserve_date) VALUES ('mega','05987648','mega90@gmail.com','12345','2020-06-25 10:00:00') ;
