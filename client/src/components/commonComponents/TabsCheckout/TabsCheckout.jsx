@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, Fragment } from "react";
 import {
   Paper,
   Stepper,
@@ -7,18 +7,19 @@ import {
   Button,
   Typography,
   CircularProgress,
-} from '@material-ui/core';
-import { Formik, Form } from 'formik';
-import validationSchema from './FormModel/validationSchema';
-import checkoutFormModel from './FormModel/checkoutFormModel';
-import formInitialValues from './FormModel/formInitialValues';
+} from "@material-ui/core";
+import { Formik, Form } from "formik";
+import validationSchema from "./FormModel/validationSchema";
+import checkoutFormModel from "./FormModel/checkoutFormModel";
+import formInitialValues from "./FormModel/formInitialValues";
 
-import ContactInfo from '../../layouts/ContactInfo';
-import useStyles from './style';
-import Confirmation from '../../layouts/ConfirmationTab';
-import Copyright from '../Footer';
+import ContactInfo from "../../layouts/ContactInfo";
+import BeforeVisit from "../../layouts/BeforeVisit";
+import Confirmation from "../../layouts/ConfirmationTab";
+import Copyright from "../Footer";
+import useStyles from "./style";
 
-const steps = ['Contact Info', 'Questions', 'Book'];
+const steps = ["Contact Info", "Questions", "Book"];
 const { formId, formField } = checkoutFormModel;
 
 const renderStepContent = (step) => {
@@ -26,11 +27,11 @@ const renderStepContent = (step) => {
     case 0:
       return <ContactInfo formField={formField} />;
     case 1:
-      return <>Questions </>;
+      return <BeforeVisit formField={formField} />;
     case 2:
       return <>Booking </>;
     default:
-      throw new Error('Unknown tab');
+      throw new Error("Unknown tab");
   }
 };
 
@@ -106,7 +107,7 @@ const TabsCheckout = () => {
                           color="primary"
                           className={classes.button}
                         >
-                          {isLastStep ? 'Book Now!' : 'Next'}
+                          {isLastStep ? "Book Now!" : "Next"}
                         </Button>
                         {isSubmitting && (
                           <CircularProgress
