@@ -31,11 +31,9 @@ export default [
   }),
   Yup.object().shape({
     [appointmentType.name]: Yup.string().required(
-      "Fill at least one"
+      "This field is required"
     ),
     [product.name]: Yup.array().required("At least one is required"),
-    [covid19.name]: Yup.string().required("This Field is required"),
+    [covid19.name]: Yup.string().required("This field is required"),
   }),
 ];
-
-// ).oneOf([true], 'Error'),
