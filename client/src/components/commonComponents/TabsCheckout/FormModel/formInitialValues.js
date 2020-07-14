@@ -18,6 +18,6 @@ export default {
   [email.name]: '',
   [zipCode.name]: '',
   [appointmentType.name]: '',
-  [product.name]: '',
+  [product.name]: [],
   [covid19.name]: '',
 };
