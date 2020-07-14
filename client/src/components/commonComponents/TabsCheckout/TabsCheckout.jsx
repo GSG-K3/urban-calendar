@@ -14,9 +14,10 @@ import checkoutFormModel from './FormModel/checkoutFormModel';
 import formInitialValues from './FormModel/formInitialValues';
 
 import ContactInfo from '../../layouts/ContactInfo';
-import useStyles from './style';
+import BeforeVisit from '../../layouts/BeforeVisit';
 import Confirmation from '../../layouts/ConfirmationTab';
 import Copyright from '../Footer';
+import useStyles from './style';
 
 const steps = ['Contact Info', 'Questions', 'Book'];
 const { formId, formField } = checkoutFormModel;
@@ -26,7 +27,7 @@ const renderStepContent = (step) => {
     case 0:
       return <ContactInfo formField={formField} />;
     case 1:
-      return <>Questions </>;
+      return <BeforeVisit formField={formField} />;
     case 2:
       return <>Booking </>;
     default:
@@ -70,7 +71,7 @@ const TabsCheckout = () => {
       <main className={classes.layout}>
         <Paper className={classes.paper} elevation={10}>
           <Typography component="h1" variant="h4" align="center">
-            Checkout
+            Reservation
           </Typography>
           <Stepper activeStep={activeStep} className={classes.stepper}>
             {steps.map((label) => (
