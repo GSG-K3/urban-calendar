@@ -21,5 +21,10 @@ export default {
       label: 'Zip/Postal Code',
       requiredErrorMsg: 'Zip/Postal Code is required',
     },
+    appointmentTime: {
+      name: 'appointmentTime',
+      label: 'Appointment Time*',
+      requiredErrorMsg: 'Time is required',
+    },
   },
 };

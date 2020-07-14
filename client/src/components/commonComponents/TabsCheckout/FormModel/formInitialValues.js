@@ -1,7 +1,7 @@
 import checkoutFormModel from './checkoutFormModel';
 
 const {
-  formField: { fullName, phone, email, zipCode },
+  formField: { fullName, phone, email, zipCode, appointmentTime },
 } = checkoutFormModel;
 
 export default {
@@ -9,4 +9,5 @@ export default {
   [phone.name]: '',
   [email.name]: '',
   [zipCode.name]: '',
+  [appointmentTime.name]: '',
 };
