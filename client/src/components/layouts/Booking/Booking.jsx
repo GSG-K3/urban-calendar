@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import InfiniteCalendar from 'react-infinite-calendar';
 import 'react-infinite-calendar/styles.css';
-import RadioButton from '../BeforeVisit/Radio';
 import { Box } from '@material-ui/core';
+import RadioButton from '../BeforeVisit/Radio';
 
 const today = new Date();
 const lastWeek = new Date(
@@ -37,9 +37,7 @@ const Booking = (props) => {
     },
   ];
 
-  const [displayTime, setDisplayTime] = useState(false);
   const displayTimeSlots = (date) => {
-    setDisplayTime(true);
     setSelectedDate(
       `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`,
     );
@@ -68,7 +66,7 @@ const Booking = (props) => {
           },
         }}
       />
-      {displayTime && (
+      {selectedDate && (
         <RadioButton
           name={appointmentTime.name}
           label={appointmentTime.label}
