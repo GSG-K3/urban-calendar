@@ -9,12 +9,13 @@ import {
   CircularProgress,
 } from '@material-ui/core';
 import { Formik, Form } from 'formik';
+import axios from 'axios';
 import validationSchema from './FormModel/validationSchema';
 import checkoutFormModel from './FormModel/checkoutFormModel';
 import formInitialValues from './FormModel/formInitialValues';
-
 import ContactInfo from '../../layouts/ContactInfo';
 import BeforeVisit from '../../layouts/BeforeVisit';
+import Booking from '../../layouts/Booking';
 import Confirmation from '../../layouts/ConfirmationTab';
 import Copyright from '../Footer';
 import useStyles from './style';
@@ -29,7 +30,7 @@ const renderStepContent = (step) => {
     case 1:
       return <BeforeVisit formField={formField} />;
     case 2:
-      return <>Booking </>;
+      return <Booking formField={formField} />;
     default:
       throw new Error('Unknown tab');
   }
@@ -47,8 +48,12 @@ const TabsCheckout = () => {
 
   const submitForm = async (values, actions) => {
     await sleep(1000);
-    // alert here will be replaced with API post request to store the data into database when reserving the date
-    alert(JSON.stringify(values, null, 2));
+    // the response will be used to setState for the confirmation alert later.
+    axios
+      .post('/api/questions/user-info', values)
+      .then((res) => res.data)
+      .catch((err) => err.response.data.message);
+
     actions.setSubmitting(false);
     setActiveStep(activeStep + 1);
   };
