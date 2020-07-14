@@ -1,4 +1,4 @@
-import { createMuiTheme } from '@material-ui/core/styles';
+import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
 
 const theme = createMuiTheme({
   palette: {
@@ -12,17 +12,21 @@ const theme = createMuiTheme({
     },
   },
   typography: {
-    fontFamily: 'Montserrat',
-    h6: {
-      fontSize: 16,
+    fontFamily: '"Montserrat",cursive',
+    letterSpacing: '0.0075em',
+    lineHeight: '1.6',
+    h5: {
+      fontSize: '1.30rem',
+      fontWeight: 'bold',
     },
-    h4: {
-      fontSize: 18,
-      '@media (min-width:970px)': {
-        fontSize: 30,
-      },
+    body1: {
+      fontSize: '0.9rem',
+    },
+    h6: {
+      fontSize: '1.19rem',
+      fontWeight: 500,
     },
   },
 });
 
-export default theme;
+export default responsiveFontSizes(theme);
