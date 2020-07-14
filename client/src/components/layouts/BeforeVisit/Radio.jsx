@@ -29,7 +29,7 @@ const RadioButton = (props) => {
           />
         ))}
       </RadioGroup>
-      <React.Fragment>{renderHelperText()}</React.Fragment>
+      <span style={{ color: 'red' }}>{renderHelperText()}</span>
     </React.Fragment>
   );
 };

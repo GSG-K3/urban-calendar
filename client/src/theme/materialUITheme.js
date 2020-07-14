@@ -12,24 +12,12 @@ const theme = createMuiTheme({
     },
   },
   typography: {
-    fontFamily: 'Montserrat',
-    h6: {
-      fontSize: 16,
-    },
-    h4: {
-      fontSize: 18,
-      '@media (min-width:970px)': {
-        fontSize: 30,
-      },
-    },
-  },
-  typography: {
     fontFamily: '"Montserrat",cursive',
     letterSpacing: '0.0075em',
     lineHeight: '1.6',
     h5: {
-      fontSize: '1.25rem',
-      fontWeight: 500,
+      fontSize: '1.30rem',
+      fontWeight: "bold",
     },
     body1: {
       fontSize: '0.9rem',

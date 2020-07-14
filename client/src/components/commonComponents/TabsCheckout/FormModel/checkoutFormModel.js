@@ -29,7 +29,7 @@ export default {
     product: {
       name: 'product',
       label: 'Product',
-      requiredErrorMsg: 'Choose one of products at least',
+      requiredErrorMsg: 'Choose at least one product',
     },
     covid19: {
       name: 'covid19',
