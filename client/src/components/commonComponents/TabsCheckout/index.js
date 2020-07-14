@@ -1,2 +1,3 @@
-import TabsCheckout from "./TabsCheckout";
+import TabsCheckout from './TabsCheckout';
+
 export default TabsCheckout;

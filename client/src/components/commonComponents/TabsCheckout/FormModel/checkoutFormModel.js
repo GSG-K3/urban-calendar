@@ -34,7 +34,7 @@ export default {
     covid19: {
       name: 'covid19',
       label: 'Covid-19',
-      requiredErrorMsg: 'This answer is required',
+      requiredErrorMsg: 'This field is required',
     },
   },
 };
