@@ -17,6 +17,7 @@ const RadioButton = (props) => {
       return error;
     }
   };
+
   return (
     <React.Fragment>
       <RadioGroup {...field} {...props} name={fieldName}>

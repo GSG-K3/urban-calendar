@@ -15,9 +15,9 @@ const Booking = (props) => {
   const [selectedDate, setSelectedDate] = useState('');
 
   const {
-    formField: { appointmentTime },
+    formField: { appointmentTime,covid19 },
   } = props;
-
+console.log('covid19', covid19)
   const timeSlots = [
     {
       value: `${selectedDate} 10:00`,
