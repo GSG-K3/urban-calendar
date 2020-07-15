@@ -69,7 +69,7 @@ const Booking = (props) => {
     console.log(reserveDate);
 
     axios
-      .get(`/api/availabletime/${id}`, {
+      .get('/api/availabletime', {
         params: {
           reserveDate,
         }
