@@ -7,7 +7,7 @@ module.exports = (req, res) => {
   if (!fullName || !phone || !email || !zipCode || !reservationDate || !timeId) {
     // if one of text fields is empty, show this message
     return res.status(400).json({
-      message: 'There is one item or more missing. Please filled it!',
+      message: 'Please make sure that you filled each field properly.',
     });
   }
   // if all text fields is full, add this data to a new row in database and show this message
