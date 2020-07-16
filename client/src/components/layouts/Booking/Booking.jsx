@@ -2,20 +2,27 @@ import React, { useState } from 'react';
 import InfiniteCalendar from 'react-infinite-calendar';
 import 'react-infinite-calendar/styles.css';
 import { Box } from '@material-ui/core';
+import moment from 'moment';
 import RadioButton from '../BeforeVisit/Radio';
 
+const covidBlockedDays = 14;
 const today = new Date();
-const lastWeek = new Date(
+const blockedWeeks = new Date(
   today.getFullYear(),
   today.getMonth(),
-  today.getDate() - 7,
+  today.getDate() + covidBlockedDays,
 );
-
+const publicHolidays = [
+  new Date(2020, 8, 7),
+  new Date(2020, 10, 11),
+  new Date(2020, 10, 26),
+  new Date(2020, 11, 25),
+];
 const Booking = (props) => {
   const [selectedDate, setSelectedDate] = useState('');
-
   const {
     formField: { appointmentTime },
+    covidAnswer,
   } = props;
 
   const timeSlots = [
@@ -38,18 +45,18 @@ const Booking = (props) => {
   ];
 
   const displayTimeSlots = (date) => {
-    setSelectedDate(
-      `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`,
-    );
+    setSelectedDate(moment(date).format('YYYY-MM-DD'));
   };
   return (
     <Box display="flex" flexDirection="column">
       <InfiniteCalendar
         width={400}
         height={300}
-        selected={today}
-        disabledDays={[0, 6]}
-        minDate={lastWeek}
+        shouldHeaderAnimate={true}
+        disabledDays={[0, 2]}
+        disabledDates={publicHolidays}
+        minDate={covidAnswer === 'yes' ? blockedWeeks : today}
+        selected={covidAnswer === 'yes' ? blockedWeeks : today}
         onSelect={displayTimeSlots}
         theme={{
           selectionColor: '#90B27A',

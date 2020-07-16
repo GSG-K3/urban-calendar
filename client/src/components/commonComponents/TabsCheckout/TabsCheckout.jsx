@@ -23,14 +23,14 @@ import useStyles from './style';
 const steps = ['Contact Info', 'Questions', 'Book'];
 const { formId, formField } = checkoutFormModel;
 
-const renderStepContent = (step) => {
+const renderStepContent = (step, covidAnswer) => {
   switch (step) {
     case 0:
       return <ContactInfo formField={formField} />;
     case 1:
       return <BeforeVisit formField={formField} />;
     case 2:
-      return <Booking formField={formField} />;
+      return <Booking formField={formField} covidAnswer={covidAnswer} />;
     default:
       throw new Error('Unknown tab');
   }
@@ -39,6 +39,7 @@ const renderStepContent = (step) => {
 const TabsCheckout = () => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
+  const [covidAnswer, setCovidAnswer] = useState('no');
   const currentValidationSchema = validationSchema[activeStep];
 
   const isLastStep = activeStep === steps.length - 1;
@@ -61,6 +62,17 @@ const TabsCheckout = () => {
   const handleSubmit = (values, actions) => {
     if (isLastStep) {
       submitForm(values, actions);
+    } else if (activeStep === 1) {
+      setCovidAnswer(values.covid19);
+      setActiveStep(activeStep + 1);
+      actions.setTouched({});
+      actions.setSubmitting(false);
+      if (values.covid19 === 'yes') {
+        //TODO: This needs to be changed later with a better pop-up styling
+        alert(
+          'Your reservation will be postponed for 2 weeks from now due to your health situation',
+        );
+      }
     } else {
       setActiveStep(activeStep + 1);
       actions.setTouched({});
@@ -96,7 +108,7 @@ const TabsCheckout = () => {
               >
                 {({ isSubmitting }) => (
                   <Form id={formId}>
-                    {renderStepContent(activeStep)}
+                    {renderStepContent(activeStep, covidAnswer)}
 
                     <div className={classes.buttons}>
                       {activeStep !== 0 && (
