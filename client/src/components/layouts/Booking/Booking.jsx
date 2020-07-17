@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import InfiniteCalendar from 'react-infinite-calendar';
 import 'react-infinite-calendar/styles.css';
 import { Box } from '@material-ui/core';
 import moment from 'moment';
+import axios from 'axios';
 import RadioButton from '../BeforeVisit/Radio';
 
 const covidBlockedDays = 14;
@@ -19,34 +20,30 @@ const publicHolidays = [
   new Date(2020, 11, 25),
 ];
 const Booking = (props) => {
-  const [selectedDate, setSelectedDate] = useState('');
+  const [reservationDate, setReservationDate] = useState(today);
+  const [timeSlots, setTimeSlots] = useState([]);
+  let timeSlotsData = [];
+
   const {
-    formField: { appointmentTime },
+    formField: { reservationTime },
     covidAnswer,
   } = props;
+  useEffect(() => {
+    axios
+      .post('/api/availabletime', { reservationDate })
+      .then((result) => setTimeSlots(result.data))
+      .catch((err) => err.response.data);
+  }, [reservationDate]);
 
-  const timeSlots = [
-    {
-      value: `${selectedDate} 10:00`,
-      label: '10:00 - 12:00',
-    },
-    {
-      value: `${selectedDate} 12:00`,
-      label: '12:00 - 14:00',
-    },
-    {
-      value: `${selectedDate} 14:00`,
-      label: '14:00 - 16:00',
-    },
-    {
-      value: `${selectedDate} 16:00`,
-      label: '16:00 - 18:00',
-    },
-  ];
+  if (timeSlots) {
+    timeSlotsData = timeSlots.map((time) => ({
+      value: time.id,
+      label: time.time_slot,
+    }));
+  }
 
-  const displayTimeSlots = (date) => {
-    setSelectedDate(moment(date).format('YYYY-MM-DD'));
-  };
+  const setDate = (date) =>
+    date && setReservationDate(moment(date).format('YYYY-MM-DD'));
   return (
     <Box display="flex" flexDirection="column">
       <InfiniteCalendar
@@ -57,7 +54,7 @@ const Booking = (props) => {
         disabledDates={publicHolidays}
         minDate={covidAnswer === 'yes' ? blockedWeeks : today}
         selected={covidAnswer === 'yes' ? blockedWeeks : today}
-        onSelect={displayTimeSlots}
+        onSelect={setDate}
         theme={{
           selectionColor: '#90B27A',
           textColor: {
@@ -73,11 +70,11 @@ const Booking = (props) => {
           },
         }}
       />
-      {selectedDate && (
+      {reservationDate && (
         <RadioButton
-          name={appointmentTime.name}
-          label={appointmentTime.label}
-          data={timeSlots}
+          name={reservationTime.name}
+          label={reservationTime.label}
+          data={timeSlotsData}
         />
       )}
     </Box>
