@@ -37,9 +37,9 @@ export default {
       label: 'Covid-19',
       requiredErrorMsg: 'This field is required',
     },
-    appointmentTime: {
-      name: 'appointmentTime',
-      label: 'Appointment Time*',
+    reservationTime: {
+      name: 'reservationTime',
+      label: 'Reservation Time*',
       requiredErrorMsg: 'Time is required',
     },
   },
