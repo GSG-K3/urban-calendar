@@ -49,9 +49,19 @@ const TabsCheckout = () => {
 
   const submitForm = async (values, actions) => {
     await sleep(1000);
+    const { fullName, phone, email, zipCode, reservationTime } = values;
+
+    const customerInfo = {
+      fullName,
+      phone,
+      email,
+      zipCode,
+      reservationDate: reservationTime.substr(1),
+      timeId: reservationTime.charAt(0),
+    };
     // the response will be used to setState for the confirmation alert later.
     axios
-      .post('/api/questions/user-info', values)
+      .post('/api/questions/user-info', customerInfo)
       .then((res) => res.data)
       .catch((err) => err.response.data.message);
 

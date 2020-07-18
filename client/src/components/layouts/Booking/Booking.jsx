@@ -20,7 +20,7 @@ const publicHolidays = [
   new Date(2020, 11, 25),
 ];
 const Booking = (props) => {
-  const [reservationDate, setReservationDate] = useState(today);
+  const [reservationDate, setReservationDate] = useState(null);
   const [timeSlots, setTimeSlots] = useState([]);
   let timeSlotsData = [];
 
@@ -29,19 +29,20 @@ const Booking = (props) => {
     covidAnswer,
   } = props;
   useEffect(() => {
-    axios
-      .post('/api/availabletime', { reservationDate })
-      .then((result) => setTimeSlots(result.data))
-      .catch((err) => err.response.data);
+    if (reservationDate) {
+      axios
+        .post('/api/availabletime', { reservationDate })
+        .then((result) => setTimeSlots(result.data))
+        .catch((err) => err.response.data);
+    }
   }, [reservationDate]);
 
   if (timeSlots) {
     timeSlotsData = timeSlots.map((time) => ({
-      value: time.id,
+      value: time.id + reservationDate,
       label: time.time_slot,
     }));
   }
-
   const setDate = (date) =>
     date && setReservationDate(moment(date).format('YYYY-MM-DD'));
   return (
