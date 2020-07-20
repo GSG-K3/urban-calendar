@@ -10,4 +10,4 @@ const getReservationData = (data) => {
   return dbconnection.query(sql);
 };
 
-module.exports = getResrvationData;
+module.exports = getReservationData;
