@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 import { Typography } from '@material-ui/core';
 import style from './style';
-import MyRadio from './Radio';
-import MyCheckbox from './Checkbox';
+import MyRadio from '../../commonComponents/TabsCheckout/FormFields/Radio';
+import MyCheckbox from '../../commonComponents/TabsCheckout/FormFields/Checkbox';
 
 const BeforeVisit = (props) => {
   const {

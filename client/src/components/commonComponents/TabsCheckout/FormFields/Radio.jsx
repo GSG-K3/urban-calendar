@@ -24,7 +24,7 @@ const RadioButton = (props) => {
           <FormControlLabel
             key={item.label}
             value={item.value}
-            control={<Radio />}
+            control={<Radio color="primary" />}
             label={item.label}
           />
         ))}
