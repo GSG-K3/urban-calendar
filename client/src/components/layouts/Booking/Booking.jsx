@@ -25,7 +25,7 @@ const Booking = (props) => {
   // get reservations and time slots data when the app mount
   useEffect(() => {
     // request to get all Reservations Data among 3 months
-    const requestOne = axios.post('/api/reservationData', {
+    const requestOne = axios.post('/api/getReservationData', {
       startDate: moment(today).format('YYYY-MM-DD'),
       endDate: moment(endDate).format('YYYY-MM-DD'),
     });
@@ -41,7 +41,7 @@ const Booking = (props) => {
           setIsLoading(false);
         }),
       )
-      .catch((err) => err.response.data);
+      .catch((err) => console.log(err.response.data));
   }, []);
 
   // store the fully reserved dates
