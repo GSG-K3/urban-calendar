@@ -2,8 +2,9 @@ const express = require('express');
 
 const router = express.Router();
 const customerInfo = require('./postCustomer');
-const availableTime = require('./availableTime');
+const timeSlots = require('./getTimeSlots');
 
 router.post('/api/questions/user-info', customerInfo);
-router.post('/api/availabletime', availableTime);
+router.get('/api/timeslots', timeSlots);
+
 module.exports = router;
