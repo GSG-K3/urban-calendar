@@ -90,7 +90,7 @@ const Booking = (props) => {
       }
     }
   }
-  // speacify the time slot labels and values when shown on radio buttons
+  // specify the time slot labels and values when shown on radio buttons
   const TimeSlotData = (timeSlot, reservationDate) =>
     timeSlot.map((time) => ({
       value: time.id + reservationDate,

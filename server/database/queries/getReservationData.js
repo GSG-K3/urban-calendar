@@ -1,6 +1,6 @@
 const dbconnection = require('../dbConnection');
 
-const getResrvationData = (data) => {
+const getReservationData = (data) => {
   const { startDate, endDate } = data;
   const sql = {
     text:
