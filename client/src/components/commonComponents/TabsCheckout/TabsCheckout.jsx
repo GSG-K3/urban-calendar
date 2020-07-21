@@ -9,12 +9,13 @@ import {
   CircularProgress,
 } from '@material-ui/core';
 import { Formik, Form } from 'formik';
+import axios from 'axios';
 import validationSchema from './FormModel/validationSchema';
 import checkoutFormModel from './FormModel/checkoutFormModel';
 import formInitialValues from './FormModel/formInitialValues';
-
 import ContactInfo from '../../layouts/ContactInfo';
 import BeforeVisit from '../../layouts/BeforeVisit';
+import Booking from '../../layouts/Booking';
 import Confirmation from '../../layouts/ConfirmationTab';
 import Copyright from '../Footer';
 import useStyles from './style';
@@ -22,14 +23,14 @@ import useStyles from './style';
 const steps = ['Contact Info', 'Questions', 'Book'];
 const { formId, formField } = checkoutFormModel;
 
-const renderStepContent = (step) => {
+const renderStepContent = (step, covidAnswer) => {
   switch (step) {
     case 0:
       return <ContactInfo formField={formField} />;
     case 1:
       return <BeforeVisit formField={formField} />;
     case 2:
-      return <>Booking </>;
+      return <Booking formField={formField} covidAnswer={covidAnswer} />;
     default:
       throw new Error('Unknown tab');
   }
@@ -38,6 +39,7 @@ const renderStepContent = (step) => {
 const TabsCheckout = () => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
+  const [covidAnswer, setCovidAnswer] = useState('no');
   const currentValidationSchema = validationSchema[activeStep];
 
   const isLastStep = activeStep === steps.length - 1;
@@ -47,8 +49,22 @@ const TabsCheckout = () => {
 
   const submitForm = async (values, actions) => {
     await sleep(1000);
-    // alert here will be replaced with API post request to store the data into database when reserving the date
-    alert(JSON.stringify(values, null, 2));
+    const { fullName, phone, email, zipCode, reservationTime } = values;
+
+    const customerInfo = {
+      fullName,
+      phone,
+      email,
+      zipCode,
+      reservationDate: reservationTime.substr(1),
+      timeId: reservationTime.charAt(0),
+    };
+    // the response will be used to setState for the confirmation alert later.
+    axios
+      .post('/api/questions/user-info', customerInfo)
+      .then((res) => res.data)
+      .catch((err) => err.response.data.message);
+
     actions.setSubmitting(false);
     setActiveStep(activeStep + 1);
   };
@@ -56,6 +72,17 @@ const TabsCheckout = () => {
   const handleSubmit = (values, actions) => {
     if (isLastStep) {
       submitForm(values, actions);
+    } else if (activeStep === 1) {
+      setCovidAnswer(values.covid19);
+      setActiveStep(activeStep + 1);
+      actions.setTouched({});
+      actions.setSubmitting(false);
+      if (values.covid19 === 'yes') {
+        //TODO: This needs to be changed later with a better pop-up styling
+        alert(
+          'Your reservation will be postponed for 2 weeks from now due to your health situation',
+        );
+      }
     } else {
       setActiveStep(activeStep + 1);
       actions.setTouched({});
@@ -91,7 +118,7 @@ const TabsCheckout = () => {
               >
                 {({ isSubmitting }) => (
                   <Form id={formId}>
-                    {renderStepContent(activeStep)}
+                    {renderStepContent(activeStep, covidAnswer)}
 
                     <div className={classes.buttons}>
                       {activeStep !== 0 && (

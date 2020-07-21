@@ -21,6 +21,7 @@ export default {
       label: 'Zip/Postal Code',
       requiredErrorMsg: 'Zip/Postal Code is required',
     },
+
     appointmentType: {
       name: 'meeting',
       label: 'Meeting',
@@ -35,6 +36,11 @@ export default {
       name: 'covid19',
       label: 'Covid-19',
       requiredErrorMsg: 'This field is required',
+    },
+    reservationTime: {
+      name: 'reservationTime',
+      label: 'Reservation Time*',
+      requiredErrorMsg: 'Time is required',
     },
   },
 };

@@ -4,7 +4,14 @@ module.exports = (req, res) => {
   const data = req.body;
   const { fullName, phone, email, zipCode, reservationDate, timeId } = data;
   // check if the all text fields is filled.
-  if (!fullName || !phone || !email || !zipCode || !reservationDate || !timeId) {
+  if (
+    !fullName ||
+    !phone ||
+    !email ||
+    !zipCode ||
+    !reservationDate ||
+    !timeId
+  ) {
     // if one of text fields is empty, show this message
     return res.status(400).json({
       message: 'Please make sure that you filled each field properly.',

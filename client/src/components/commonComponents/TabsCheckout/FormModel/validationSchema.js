@@ -10,6 +10,7 @@ const {
     product,
     covid19,
     appointmentType,
+    reservationTime,
   },
 } = checkoutFormModel;
 
@@ -35,5 +36,10 @@ export default [
     ),
     [product.name]: Yup.array().required(`${product.requiredErrorMsg}`),
     [covid19.name]: Yup.string().required(`${covid19.requiredErrorMsg}`),
+  }),
+  Yup.object().shape({
+    [reservationTime.name]: Yup.string().required(
+      `${reservationTime.requiredErrorMsg}`,
+    ),
   }),
 ];
