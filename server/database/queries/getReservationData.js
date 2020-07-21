@@ -1,6 +1,6 @@
 const dbconnection = require('../dbConnection');
 
-const getResrvationData = (data) => {
+const getReservationData = (data) => {
   const { startDate, endDate } = data;
   const sql = {
     text:
@@ -10,4 +10,4 @@ const getResrvationData = (data) => {
   return dbconnection.query(sql);
 };
 
-module.exports = getResrvationData;
+module.exports = getReservationData;
