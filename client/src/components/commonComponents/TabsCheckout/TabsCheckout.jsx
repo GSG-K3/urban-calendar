@@ -8,11 +8,12 @@ import {
   Typography,
   CircularProgress,
 } from '@material-ui/core';
+
 import { Formik, Form } from 'formik';
 import validationSchema from './FormModel/validationSchema';
 import checkoutFormModel from './FormModel/checkoutFormModel';
 import formInitialValues from './FormModel/formInitialValues';
-
+import Swal from 'sweetalert2';
 import ContactInfo from '../../layouts/ContactInfo';
 import BeforeVisit from '../../layouts/BeforeVisit';
 import Confirmation from '../../layouts/ConfirmationTab';
@@ -47,10 +48,40 @@ const TabsCheckout = () => {
 
   const submitForm = async (values, actions) => {
     await sleep(1000);
-    // alert here will be replaced with API post request to store the data into database when reserving the date
-    alert(JSON.stringify(values, null, 2));
-    actions.setSubmitting(false);
-    setActiveStep(activeStep + 1);
+    const swalWithBootstrapButtons = Swal.mixin({
+    
+       buttonsStyling: true
+    })
+    
+    swalWithBootstrapButtons.fire({
+      //  imageUrl: 'https://image.freepik.com/free-vector/people-illustration-with-calendar-schedule_40677-12.jpg',
+      //  imageHeight: 100,
+      //  imageWidth: 100,
+      //  imageAlt: 'A tall image', 
+      title: 'Are you sure?',
+      text: values.email,
+      showCancelButton: true,
+      confirmButtonText: 'Confirm',
+      cancelButtonText: 'Cancel',
+      confirmButtonColor: '#90B27A',
+      cancelButtonColor: '#FF7171',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
+       
+          actions.setSubmitting(false)
+              setActiveStep(activeStep+1)
+        
+      } else if (
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        
+          actions.setSubmitting(false)
+         setActiveStep(activeStep)
+        
+      }
+    })
+    
   };
 
   const handleSubmit = (values, actions) => {
@@ -82,8 +113,9 @@ const TabsCheckout = () => {
           </Stepper>
           <Fragment>
             {activeStep === steps.length ? (
-              <Confirmation />
+               <Confirmation />
             ) : (
+            
               <Formik
                 initialValues={formInitialValues}
                 validationSchema={currentValidationSchema}
@@ -117,10 +149,11 @@ const TabsCheckout = () => {
                         )}
                       </div>
                     </div>
+                
                   </Form>
                 )}
               </Formik>
-            )}
+        )}
           </Fragment>
         </Paper>
         <Copyright />
