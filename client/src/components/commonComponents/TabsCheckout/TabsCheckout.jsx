@@ -7,7 +7,10 @@ import {
   Button,
   Typography,
   CircularProgress,
+  TextareaAutosize,
 } from '@material-ui/core';
+import swal from 'sweetalert2';
+import 'sweetalert2/src/sweetalert2.scss';
 import { Formik, Form } from 'formik';
 import validationSchema from './FormModel/validationSchema';
 import checkoutFormModel from './FormModel/checkoutFormModel';
@@ -41,9 +44,7 @@ const TabsCheckout = () => {
   const currentValidationSchema = validationSchema[activeStep];
 
   const isLastStep = activeStep === steps.length - 1;
-  const sleep = (ms) => {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  };
+  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   const submitForm = async (values, actions) => {
     await sleep(1000);
@@ -56,6 +57,33 @@ const TabsCheckout = () => {
   const handleSubmit = (values, actions) => {
     if (isLastStep) {
       submitForm(values, actions);
+    } else if (activeStep === 1) {
+      if (values.covid19 === 'yes') {
+        swal.fire({
+          title: 'Bless you',
+          text:
+            'Your reservation will be postponed for 2 weeks from now due to your health situation. Thank you for your understanding',
+          showClass: {
+            popup: 'animate__animated animate__fadeInDown',
+          },
+          hideClass: {
+            popup: 'animate__animated animate__fadeOutUp',
+          },
+          imageUrl:
+            ' https://cdn.dribbble.com/users/3691882/screenshots/11018522/media/0047aad1a6fb3aa4362d6acd69059924.gif',
+          imageAlt: 'Custom image',
+          // 'https://image.freepik.com/free-vector/family-protected-from-virus_23-2148575207.jpg',
+          // 'https://cdn.dribbble.com/users/419546/screenshots/2975220/gif1.gif',
+          //  'https://cdn.dribbble.com/users/1843582/screenshots/11321910/03._hand_sanitizer.gif',
+          confirmButtonText: 'I understand',
+          showLoaderOnConfirm: true,
+          confirmButtonColor: '#02C6C0',
+          focusConfirm: true,
+        });
+      }
+      setActiveStep(activeStep + 1);
+      actions.setTouched({});
+      actions.setSubmitting(false);
     } else {
       setActiveStep(activeStep + 1);
       actions.setTouched({});
