@@ -7,10 +7,10 @@ import axios from 'axios';
 import RadioButton from '../../commonComponents/TabsCheckout/FormFields/Radio';
 import exceptions from './exceptedDays';
 
-const { today, blockedWeeks, endDate, publicHolidays } = exceptions;
+const { today, blockedWeeks, maxDate, publicHolidays } = exceptions;
 const Booking = (props) => {
   const [allReservations, setAllReservations] = useState(null);
-  const [TimeSlots, setTimeSlots] = useState(null);
+  const [timeSlots, setTimeSlots] = useState(null);
   const [availableTimeSlots, setAvailableTimeSlots] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const fullReservedDays = [];
@@ -22,18 +22,19 @@ const Booking = (props) => {
     covidAnswer,
   } = props;
 
+  const startDate = moment(today).format('YYYY-MM-DD');
+  const endDate = moment(maxDate).format('YYYY-MM-DD');
   // get reservations and time slots data when the app mount
   useEffect(() => {
     // request to get all Reservations Data among 3 months
-    const requestOne = axios.post('/api/getReservationData', {
-      startDate: moment(today).format('YYYY-MM-DD'),
-      endDate: moment(endDate).format('YYYY-MM-DD'),
-    });
+    const reservationRequest = axios.get(
+      `/api/reservations?startDate=${startDate}&endDate=${endDate}`,
+    );
     // request to get all Time Slots
-    const requestTwo = axios.get('/api/timeslots');
+    const timeslotRequest = axios.get('/api/timeslots');
 
     axios
-      .all([requestOne, requestTwo])
+      .all([reservationRequest, timeslotRequest])
       .then(
         axios.spread((...responses) => {
           setAllReservations(responses[0].data);
@@ -41,11 +42,11 @@ const Booking = (props) => {
           setIsLoading(false);
         }),
       )
-      .catch((err) => console.log(err.response.data));
-  }, []);
+      .catch((err) => err.response.data);
+  }, [startDate, endDate]);
 
   // store the fully reserved dates
-  if (allReservations && TimeSlots) {
+  if (allReservations && timeSlots) {
     // store each reservation date with it's reserved time id.
     for (let i = 0; i < allReservations.length; i++) {
       // change date format
@@ -71,7 +72,7 @@ const Booking = (props) => {
     const reservedDates = Object.keys(storeTimeIds); // get the reservation days from the store keys
 
     // the fixed time slots ids that we get from DB
-    const timeSlotsIds = TimeSlots.map((timeSlot) => timeSlot.id);
+    const timeSlotsIds = timeSlots.map((timeSlot) => timeSlot.id);
 
     for (let j = 0; j < reservedDates.length; j++) {
       // check if one of the reservation dates is fully reserved to disable it later in the calender
@@ -106,12 +107,12 @@ const Booking = (props) => {
         storeAvailableTimeSlots[reservationDate].difference,
       );
       // compare the ids for the time slots of a specific date with the fixed timeSlot to return all the time slot data and send it to radio buttons.
-      const availableTime = TimeSlots.filter((timeSlot) =>
+      const availableTime = timeSlots.filter((timeSlot) =>
         reservedIds.has(timeSlot.id),
       );
       setAvailableTimeSlots(TimeSlotData(availableTime, reservationDate));
     } else {
-      setAvailableTimeSlots(TimeSlotData(TimeSlots, reservationDate));
+      setAvailableTimeSlots(TimeSlotData(timeSlots, reservationDate));
     }
   };
 
@@ -130,7 +131,7 @@ const Booking = (props) => {
             disabledDates={[...publicHolidays, ...fullReservedDays]}
             minDate={covidAnswer === 'yes' ? blockedWeeks : today}
             min={today} // Minimum rendered month
-            max={endDate} // Maximum rendered month
+            max={maxDate} // Maximum rendered month
             selected={covidAnswer === 'yes' ? blockedWeeks : today}
             onSelect={getAvailableTimeSlots}
             theme={{

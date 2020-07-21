@@ -11,7 +11,7 @@ export default {
   ),
 
   // the max date that a user can make an appointment at
-  endDate: new Date(today.getFullYear(), today.getMonth() + 3, today.getDate()),
+  maxDate: new Date(today.getFullYear(), today.getMonth() + 3, today.getDate()),
 
   publicHolidays: [
     new Date(2020, 8, 7),
