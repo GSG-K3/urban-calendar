@@ -4,7 +4,7 @@ import Guideline from './components/layouts/Guideline';
 import Checkout from './components/commonComponents/TabsCheckout';
 import NavBar from './components/commonComponents/NavBar';
 import LandingPage from './components/layouts/LandingPage';
-import Error404 from './components/layouts/pageNotFound'
+import PageNotFound from './components/layouts/PageNotFound'
 const App = () => (
   <Fragment>
     <Router>
@@ -13,7 +13,7 @@ const App = () => (
       <Route exact path="/" component={LandingPage} />
         <Route exact path="/guideline" component={Guideline} />
         <Route exact path="/reservation" component={Checkout} />
-        <Route component={Error404} />
+        <Route component={PageNotFound} />
       </Switch>
     </Router>
   </Fragment>
