@@ -3,7 +3,16 @@ const { nodeMailer } = require('../helpers');
 
 module.exports = (req, res) => {
   const data = req.body;
-  const { fullName, phone, email, zipCode, reservationDate, timeId } = data;
+  console.log('data', data);
+  const {
+    fullName,
+    phone,
+    email,
+    zipCode,
+    reservationDate,
+    timeId,
+    reservationTime,
+  } = data;
   // check if the all text fields is filled.
   if (
     !fullName ||
@@ -11,7 +20,8 @@ module.exports = (req, res) => {
     !email ||
     !zipCode ||
     !reservationDate ||
-    !timeId
+    !timeId ||
+    !reservationTime
   ) {
     // if one of text fields is empty, show this message
     return res.status(400).json({
@@ -22,7 +32,7 @@ module.exports = (req, res) => {
   postCustomer(data)
     .then((response) => {
       if (response.rowCount === 1) {
-        nodeMailer(fullName, email, reservationDate);
+        nodeMailer(fullName, email, reservationDate, reservationTime);
         return res.status(200).json({ message: 'user created successfully!' });
       }
     })
