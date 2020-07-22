@@ -1,5 +1,5 @@
 const postCustomer = require('../database/queries/postCustomer');
-const nodeMailer = require('../helpers');
+const { nodeMailer } = require('../helpers');
 
 module.exports = (req, res) => {
   const data = req.body;
