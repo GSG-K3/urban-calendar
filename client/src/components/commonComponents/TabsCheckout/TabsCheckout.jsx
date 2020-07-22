@@ -117,7 +117,7 @@ const TabsCheckout = () => {
         Swal.fire({
           title: 'Bless you',
           text:
-            'Your reservation will be postponed for 2 weeks from now due to your health situation. Thank you for your understanding',
+            'Your reservation will be postponed for 2 weeks from now due to your health situation.Thank you for your understanding',
           showClass: {
             popup: 'animate__animated animate__fadeInDown',
           },
@@ -128,9 +128,7 @@ const TabsCheckout = () => {
             ' https://cdn.dribbble.com/users/3691882/screenshots/11018522/media/0047aad1a6fb3aa4362d6acd69059924.gif',
           imageAlt: 'Custom image',
           confirmButtonText: 'I understand',
-          showLoaderOnConfirm: true,
-          confirmButtonColor: '#02C6C0',
-          focusConfirm: true,
+          confirmButtonColor: '#90B27A',
         }).then((res) => {
           if (res) {
             setActiveStep(activeStep + 1);
