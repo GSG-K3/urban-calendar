@@ -1,4 +1,4 @@
-const nodemailer = require("nodemailer");
+const nodemailer = require('nodemailer');
 
 const { GMAIL_USER, GMAIL_PASS } = process.env;
 
@@ -13,24 +13,24 @@ async function mailing(fullName, email, reservationDate, reservationTime) {
   `;
 
   const transporter = nodemailer.createTransport({
-    service: "gmail",
+    service: 'gmail',
     secure: true,
     auth: {
       user: GMAIL_USER,
       pass: GMAIL_PASS,
     },
     tls: {
-      ciphers: "SSLv3",
+      ciphers: 'SSLv3',
       rejectUnauthorized: true,
     },
   });
   try {
     const mailOptions = await transporter.sendMail({
       date: new Date(),
-      from: "Urban-natural@gmail.com",
+      from: 'Urban-natural@gmail.com',
       to: email,
-      subject: "Confirm Reservation ✔", // Email Subject
-      text: "Thank you for reserving", // plain text body
+      subject: 'Confirm Reservation ✔', // Email Subject
+      text: 'Thank you for reserving', // plain text body
       html: htmlEmail, // html body
     });
   } catch (error) {
