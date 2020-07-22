@@ -2,12 +2,14 @@ const nodemailer = require('nodemailer');
 
 const { GMAIL_USER, GMAIL_PASS } = process.env;
 
-async function mailing(fullName, email, reservationDate) {
-  const htmlEmail = `<h3>Thank you for reserving in our Store..👻</h3>
-  <p><b>${fullName}</b> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-  <ul>
-  <li>your reservation Date is: ${reservationDate}</li>
-  </ul>`;
+async function mailing(fullName, email, reservationDate, reservationTime) {
+  const htmlEmail = `<h3>${fullName} thank you for reserving in our Store..</h3>
+  <p>Just Dieeeeeeeee, DIE pleassse, DO THE PLANET a favour and Die so we can the trees grow from your remains and we can make alot of furniture. JUSt Do not commit a SUICIDE, no one want to see your soul in their nightmares. <br/> 
+  <ul>your reservation Date is: ${reservationDate}- ${reservationTime}EST</ul>
+  <ul>Want to chat by phone to let us take your remains? Call us at (201) 330-1212</ul>
+  <ul>Monday – Saturday, 10:00am – 6:00pm EST.</ul>
+  <ul>Sundays, 12:00pm – 5:00pm EST </ul> 
+  <b> We wish you a great time with us, now and forever... RIP ${fullName}</b>`;
 
   const transporter = nodemailer.createTransport({
     service: 'gmail',
