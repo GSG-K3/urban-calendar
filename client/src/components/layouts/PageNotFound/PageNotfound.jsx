@@ -7,7 +7,7 @@ const PageNotFound = () => {
   return (
     <div>
     <Grid xs={12}>
-      <Box display='flex' justifyContent='center' justifyContent='center'>
+      <Box display='flex' justifyContent='center'>
         <img className={classes.error404} src={error404} alt= 'error'/>
       </Box>
     </Grid>
