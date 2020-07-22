@@ -8,11 +8,13 @@ import {
   Typography,
   CircularProgress,
 } from '@material-ui/core';
+import 'sweetalert2/src/sweetalert2.scss'
 import { Formik, Form } from 'formik';
 import axios from 'axios';
 import validationSchema from './FormModel/validationSchema';
 import checkoutFormModel from './FormModel/checkoutFormModel';
 import formInitialValues from './FormModel/formInitialValues';
+import Swal from 'sweetalert2';
 import ContactInfo from '../../layouts/ContactInfo';
 import BeforeVisit from '../../layouts/BeforeVisit';
 import Booking from '../../layouts/Booking';
@@ -50,23 +52,61 @@ const TabsCheckout = () => {
   const submitForm = async (values, actions) => {
     await sleep(1000);
     const { fullName, phone, email, zipCode, reservationTime } = values;
-
-    const customerInfo = {
-      fullName,
-      phone,
-      email,
-      zipCode,
-      reservationDate: reservationTime.substr(1),
-      timeId: reservationTime.charAt(0),
-    };
-    // the response will be used to setState for the confirmation alert later.
-    axios
-      .post('/api/questions/user-info', customerInfo)
-      .then((res) => res.data)
-      .catch((err) => err.response.data.message);
-
-    actions.setSubmitting(false);
-    setActiveStep(activeStep + 1);
+    const dateInfo = reservationTime.split('@')
+    
+    const swalWithBootstrapButtons = Swal.mixin({
+       buttonsStyling: true
+    })
+    
+    swalWithBootstrapButtons.fire({
+       imageUrl: 'https://www.southislandmsa.ca/wp-content/uploads/2018/03/calendar-flat-icon-01-.jpg',
+       imageHeight: 100,
+       imageWidth: 150,
+       imageAlt: 'A tall image', 
+      title: 'Are you sure?',
+      text: `Your Appointment will be on ${dateInfo[1]} at ${dateInfo[2].slice(0,5)}`,
+      showCancelButton: true,
+      confirmButtonText: 'Confirm',
+      cancelButtonText: 'Cancel',
+      confirmButtonColor: '#90B27A',
+      cancelButtonColor: '#FF7171',
+      reverseButtons: true,
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      }
+    }).then((result) => {
+      if (result.value) {
+        const customerInfo = {
+          fullName,
+          phone,
+          email,
+          zipCode,
+          reservationDate: dateInfo[1],
+          timeId: dateInfo[0],
+          reservationTime:dateInfo[2]
+        };
+        // the response will be used to setState for the confirmation alert later.
+        axios
+          .post('/api/questions/user-info', customerInfo)
+          .then((res) => res.data)
+          .catch((err) => err.response.data.message);
+       
+          actions.setSubmitting(false)
+             setActiveStep(activeStep+1)
+        
+      } else if (
+        result.dismiss === Swal.DismissReason.cancel
+      ) {
+        
+          actions.setSubmitting(false)
+         setActiveStep(activeStep)
+        
+      }
+    })
+    
   };
 
   const handleSubmit = (values, actions) => {
@@ -109,8 +149,9 @@ const TabsCheckout = () => {
           </Stepper>
           <Fragment>
             {activeStep === steps.length ? (
-              <Confirmation />
+               <Confirmation />
             ) : (
+            
               <Formik
                 initialValues={formInitialValues}
                 validationSchema={currentValidationSchema}
@@ -144,10 +185,11 @@ const TabsCheckout = () => {
                         )}
                       </div>
                     </div>
+                
                   </Form>
                 )}
               </Formik>
-            )}
+        )}
           </Fragment>
         </Paper>
         <Copyright />
