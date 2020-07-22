@@ -8,7 +8,7 @@ import {
   Typography,
   CircularProgress,
 } from '@material-ui/core';
-
+import 'sweetalert2/src/sweetalert2.scss'
 import { Formik, Form } from 'formik';
 import axios from 'axios';
 import validationSchema from './FormModel/validationSchema';
@@ -70,7 +70,13 @@ const TabsCheckout = () => {
       cancelButtonText: 'Cancel',
       confirmButtonColor: '#90B27A',
       cancelButtonColor: '#FF7171',
-      reverseButtons: true
+      reverseButtons: true,
+      showClass: {
+        popup: 'animate__animated animate__fadeInDown'
+      },
+      hideClass: {
+        popup: 'animate__animated animate__fadeOutUp'
+      }
     }).then((result) => {
       if (result.value) {
         const customerInfo = {
