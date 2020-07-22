@@ -1,6 +1,6 @@
 import React from 'react';
 import { Typography, Grid } from '@material-ui/core';
-import InputField from './InputField';
+import InputField from '../../commonComponents/TabsCheckout/FormFields/InputField';
 
 const ContactInfo = (props) => {
   const {

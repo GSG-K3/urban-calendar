@@ -9,6 +9,7 @@ const {
     appointmentType,
     product,
     covid19,
+    reservationTime,
   },
 } = checkoutFormModel;
 
@@ -20,4 +21,5 @@ export default {
   [appointmentType.name]: '',
   [product.name]: [],
   [covid19.name]: '',
+  [reservationTime.name]: '',
 };

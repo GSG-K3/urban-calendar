@@ -10,12 +10,14 @@ import {
 } from '@material-ui/core';
 
 import { Formik, Form } from 'formik';
+import axios from 'axios';
 import validationSchema from './FormModel/validationSchema';
 import checkoutFormModel from './FormModel/checkoutFormModel';
 import formInitialValues from './FormModel/formInitialValues';
 import Swal from 'sweetalert2';
 import ContactInfo from '../../layouts/ContactInfo';
 import BeforeVisit from '../../layouts/BeforeVisit';
+import Booking from '../../layouts/Booking';
 import Confirmation from '../../layouts/ConfirmationTab';
 import Copyright from '../Footer';
 import useStyles from './style';
@@ -23,14 +25,14 @@ import useStyles from './style';
 const steps = ['Contact Info', 'Questions', 'Book'];
 const { formId, formField } = checkoutFormModel;
 
-const renderStepContent = (step) => {
+const renderStepContent = (step, covidAnswer) => {
   switch (step) {
     case 0:
       return <ContactInfo formField={formField} />;
     case 1:
       return <BeforeVisit formField={formField} />;
     case 2:
-      return <>Booking </>;
+      return <Booking formField={formField} covidAnswer={covidAnswer} />;
     default:
       throw new Error('Unknown tab');
   }
@@ -39,6 +41,7 @@ const renderStepContent = (step) => {
 const TabsCheckout = () => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
+  const [covidAnswer, setCovidAnswer] = useState('no');
   const currentValidationSchema = validationSchema[activeStep];
 
   const isLastStep = activeStep === steps.length - 1;
@@ -48,18 +51,20 @@ const TabsCheckout = () => {
 
   const submitForm = async (values, actions) => {
     await sleep(1000);
-    const swalWithBootstrapButtons = Swal.mixin({
+    const { fullName, phone, email, zipCode, reservationTime } = values;
+    const dateInfo = reservationTime.split('@')
     
+    const swalWithBootstrapButtons = Swal.mixin({
        buttonsStyling: true
     })
     
     swalWithBootstrapButtons.fire({
-      //  imageUrl: 'https://image.freepik.com/free-vector/people-illustration-with-calendar-schedule_40677-12.jpg',
-      //  imageHeight: 100,
-      //  imageWidth: 100,
-      //  imageAlt: 'A tall image', 
+       imageUrl: 'https://www.southislandmsa.ca/wp-content/uploads/2018/03/calendar-flat-icon-01-.jpg',
+       imageHeight: 100,
+       imageWidth: 150,
+       imageAlt: 'A tall image', 
       title: 'Are you sure?',
-      text: values.email,
+      text: `Your Appointment will be on ${dateInfo[1]} at ${dateInfo[2].slice(0,5)}`,
       showCancelButton: true,
       confirmButtonText: 'Confirm',
       cancelButtonText: 'Cancel',
@@ -68,9 +73,23 @@ const TabsCheckout = () => {
       reverseButtons: true
     }).then((result) => {
       if (result.value) {
+        const customerInfo = {
+          fullName,
+          phone,
+          email,
+          zipCode,
+          reservationDate: dateInfo[1],
+          timeId: dateInfo[0],
+          reservationTime:dateInfo[2]
+        };
+        // the response will be used to setState for the confirmation alert later.
+        axios
+          .post('/api/questions/user-info', customerInfo)
+          .then((res) => res.data)
+          .catch((err) => err.response.data.message);
        
           actions.setSubmitting(false)
-              setActiveStep(activeStep+1)
+             setActiveStep(activeStep+1)
         
       } else if (
         result.dismiss === Swal.DismissReason.cancel
@@ -87,6 +106,17 @@ const TabsCheckout = () => {
   const handleSubmit = (values, actions) => {
     if (isLastStep) {
       submitForm(values, actions);
+    } else if (activeStep === 1) {
+      setCovidAnswer(values.covid19);
+      setActiveStep(activeStep + 1);
+      actions.setTouched({});
+      actions.setSubmitting(false);
+      if (values.covid19 === 'yes') {
+        //TODO: This needs to be changed later with a better pop-up styling
+        alert(
+          'Your reservation will be postponed for 2 weeks from now due to your health situation',
+        );
+      }
     } else {
       setActiveStep(activeStep + 1);
       actions.setTouched({});
@@ -123,7 +153,7 @@ const TabsCheckout = () => {
               >
                 {({ isSubmitting }) => (
                   <Form id={formId}>
-                    {renderStepContent(activeStep)}
+                    {renderStepContent(activeStep, covidAnswer)}
 
                     <div className={classes.buttons}>
                       {activeStep !== 0 && (
