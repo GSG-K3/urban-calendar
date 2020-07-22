@@ -7,7 +7,6 @@ import {
   Button,
   Typography,
   CircularProgress,
-  TextareaAutosize,
 } from '@material-ui/core';
 import Swal from 'sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
@@ -22,11 +21,11 @@ import Booking from '../../layouts/Booking';
 import Confirmation from '../../layouts/ConfirmationTab';
 import Copyright from '../Footer';
 import useStyles from './style';
-import { result } from 'lodash';
 
-const steps = ['Contact Info', 'Questions', 'Book'];
+const steps = ['Contact Info', 'Questions', 'Book']; // store tabs titles
 const { formId, formField } = checkoutFormModel;
 
+// specify each tab content
 const renderStepContent = (step, covidAnswer) => {
   switch (step) {
     case 0:
@@ -47,28 +46,32 @@ const TabsCheckout = () => {
   const currentValidationSchema = validationSchema[activeStep];
 
   const isLastStep = activeStep === steps.length - 1;
-  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  // const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+  // when the user reaches the last step of checkout and submit the form
   const submitForm = async (values, actions) => {
-    await sleep(1000);
+    // await sleep(1000);
+    // form fields values that comes from each form in each tab
     const { fullName, phone, email, zipCode, reservationTime } = values;
+
+    // reservation time consists of time id, date and time seperated by @
     const dateInfo = reservationTime.split('@');
 
+    // confiramtion pop up configuration
     const swalWithBootstrapButtons = Swal.mixin({
       buttonsStyling: true,
     });
-
     swalWithBootstrapButtons
       .fire({
         imageUrl:
           'https://www.southislandmsa.ca/wp-content/uploads/2018/03/calendar-flat-icon-01-.jpg',
         imageHeight: 100,
         imageWidth: 150,
-        imageAlt: 'A tall image',
+        imageAlt: 'calendar image',
         title: 'Are you sure?',
         text: `Your Appointment will be on ${
           dateInfo[1]
-        } at ${dateInfo[2].slice(0, 5)}`,
+        } at ${dateInfo[2].slice(0, 5)}`, // slice used to get the date as hh:mm and remove the seconds
         showCancelButton: true,
         confirmButtonText: 'Confirm',
         cancelButtonText: 'Cancel',
@@ -84,6 +87,7 @@ const TabsCheckout = () => {
       })
       .then((result) => {
         if (result.value) {
+          // if the user confirmed the reservation post his/her data into database
           const customerInfo = {
             fullName,
             phone,
@@ -93,31 +97,35 @@ const TabsCheckout = () => {
             timeId: dateInfo[0],
             reservationTime: dateInfo[2],
           };
-          // the response will be used to setState for the confirmation alert later.
+
           axios
             .post('/api/questions/user-info', customerInfo)
             .then((res) => res.data)
             .catch((err) => err.response.data.message);
 
-          actions.setSubmitting(false);
-          setActiveStep(activeStep + 1);
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          actions.setSubmitting(false); // finish the cycle
+          setActiveStep(activeStep + 1); // go to next tab
+        }
+        // if the user didn't confirm th reservation it will be back to the calendar page
+        else if (result.dismiss === Swal.DismissReason.cancel) {
           actions.setSubmitting(false);
           setActiveStep(activeStep);
         }
       });
   };
 
+  // handle next or submit button for each tab
   const handleSubmit = (values, actions) => {
     if (isLastStep) {
       submitForm(values, actions);
     } else if (activeStep === 1) {
+      // check if the answer of covid question is yes, a pop up will appear to tell the user that he/she can make a reservation after two weeks from the current day
       setCovidAnswer(values.covid19);
       if (values.covid19 === 'yes') {
         Swal.fire({
           title: 'Bless you',
           text:
-            'Your reservation will be postponed for 2 weeks from now due to your health situation.Thank you for your understanding',
+            'You can make a reservation after 2 weeks from now due to your health situation.Thank you for your understanding',
           showClass: {
             popup: 'animate__animated animate__fadeInDown',
           },
@@ -132,18 +140,26 @@ const TabsCheckout = () => {
         }).then((res) => {
           if (res) {
             setActiveStep(activeStep + 1);
-            actions.setTouched({});
+            actions.setTouched({}); // to check the validation
             actions.setSubmitting(false);
           }
         });
       }
-    } else {
+      // if the answer of covid question was no, the process will continue without any pop up
+      else {
+        setActiveStep(activeStep + 1);
+        actions.setTouched({});
+        actions.setSubmitting(false);
+      }
+    }
+    // handle the current step if it wasn't the last one or step 1
+    else {
       setActiveStep(activeStep + 1);
       actions.setTouched({});
       actions.setSubmitting(false);
     }
   };
-
+  // handle back button
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
