@@ -7,20 +7,22 @@ import {
   Button,
   Typography,
   CircularProgress,
+  TextareaAutosize,
 } from '@material-ui/core';
-import 'sweetalert2/src/sweetalert2.scss'
+import Swal from 'sweetalert2';
+import 'sweetalert2/src/sweetalert2.scss';
 import { Formik, Form } from 'formik';
 import axios from 'axios';
 import validationSchema from './FormModel/validationSchema';
 import checkoutFormModel from './FormModel/checkoutFormModel';
 import formInitialValues from './FormModel/formInitialValues';
-import Swal from 'sweetalert2';
 import ContactInfo from '../../layouts/ContactInfo';
 import BeforeVisit from '../../layouts/BeforeVisit';
 import Booking from '../../layouts/Booking';
 import Confirmation from '../../layouts/ConfirmationTab';
 import Copyright from '../Footer';
 import useStyles from './style';
+import { result } from 'lodash';
 
 const steps = ['Contact Info', 'Questions', 'Book'];
 const { formId, formField } = checkoutFormModel;
@@ -45,68 +47,65 @@ const TabsCheckout = () => {
   const currentValidationSchema = validationSchema[activeStep];
 
   const isLastStep = activeStep === steps.length - 1;
-  const sleep = (ms) => {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-  };
+  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   const submitForm = async (values, actions) => {
     await sleep(1000);
     const { fullName, phone, email, zipCode, reservationTime } = values;
-    const dateInfo = reservationTime.split('@')
-    
+    const dateInfo = reservationTime.split('@');
+
     const swalWithBootstrapButtons = Swal.mixin({
-       buttonsStyling: true
-    })
-    
-    swalWithBootstrapButtons.fire({
-       imageUrl: 'https://www.southislandmsa.ca/wp-content/uploads/2018/03/calendar-flat-icon-01-.jpg',
-       imageHeight: 100,
-       imageWidth: 150,
-       imageAlt: 'A tall image', 
-      title: 'Are you sure?',
-      text: `Your Appointment will be on ${dateInfo[1]} at ${dateInfo[2].slice(0,5)}`,
-      showCancelButton: true,
-      confirmButtonText: 'Confirm',
-      cancelButtonText: 'Cancel',
-      confirmButtonColor: '#90B27A',
-      cancelButtonColor: '#FF7171',
-      reverseButtons: true,
-      showClass: {
-        popup: 'animate__animated animate__fadeInDown'
-      },
-      hideClass: {
-        popup: 'animate__animated animate__fadeOutUp'
-      }
-    }).then((result) => {
-      if (result.value) {
-        const customerInfo = {
-          fullName,
-          phone,
-          email,
-          zipCode,
-          reservationDate: dateInfo[1],
-          timeId: dateInfo[0],
-          reservationTime:dateInfo[2]
-        };
-        // the response will be used to setState for the confirmation alert later.
-        axios
-          .post('/api/questions/user-info', customerInfo)
-          .then((res) => res.data)
-          .catch((err) => err.response.data.message);
-       
-          actions.setSubmitting(false)
-             setActiveStep(activeStep+1)
-        
-      } else if (
-        result.dismiss === Swal.DismissReason.cancel
-      ) {
-        
-          actions.setSubmitting(false)
-         setActiveStep(activeStep)
-        
-      }
-    })
-    
+      buttonsStyling: true,
+    });
+
+    swalWithBootstrapButtons
+      .fire({
+        imageUrl:
+          'https://www.southislandmsa.ca/wp-content/uploads/2018/03/calendar-flat-icon-01-.jpg',
+        imageHeight: 100,
+        imageWidth: 150,
+        imageAlt: 'A tall image',
+        title: 'Are you sure?',
+        text: `Your Appointment will be on ${
+          dateInfo[1]
+        } at ${dateInfo[2].slice(0, 5)}`,
+        showCancelButton: true,
+        confirmButtonText: 'Confirm',
+        cancelButtonText: 'Cancel',
+        confirmButtonColor: '#90B27A',
+        cancelButtonColor: '#FF7171',
+        reverseButtons: true,
+        showClass: {
+          popup: 'animate__animated animate__fadeInDown',
+        },
+        hideClass: {
+          popup: 'animate__animated animate__fadeOutUp',
+        },
+      })
+      .then((result) => {
+        if (result.value) {
+          const customerInfo = {
+            fullName,
+            phone,
+            email,
+            zipCode,
+            reservationDate: dateInfo[1],
+            timeId: dateInfo[0],
+            reservationTime: dateInfo[2],
+          };
+          // the response will be used to setState for the confirmation alert later.
+          axios
+            .post('/api/questions/user-info', customerInfo)
+            .then((res) => res.data)
+            .catch((err) => err.response.data.message);
+
+          actions.setSubmitting(false);
+          setActiveStep(activeStep + 1);
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          actions.setSubmitting(false);
+          setActiveStep(activeStep);
+        }
+      });
   };
 
   const handleSubmit = (values, actions) => {
@@ -114,14 +113,29 @@ const TabsCheckout = () => {
       submitForm(values, actions);
     } else if (activeStep === 1) {
       setCovidAnswer(values.covid19);
-      setActiveStep(activeStep + 1);
-      actions.setTouched({});
-      actions.setSubmitting(false);
       if (values.covid19 === 'yes') {
-        //TODO: This needs to be changed later with a better pop-up styling
-        alert(
-          'Your reservation will be postponed for 2 weeks from now due to your health situation',
-        );
+        Swal.fire({
+          title: 'Bless you',
+          text:
+            'Your reservation will be postponed for 2 weeks from now due to your health situation.Thank you for your understanding',
+          showClass: {
+            popup: 'animate__animated animate__fadeInDown',
+          },
+          hideClass: {
+            popup: 'animate__animated animate__fadeOutUp',
+          },
+          imageUrl:
+            ' https://cdn.dribbble.com/users/3691882/screenshots/11018522/media/0047aad1a6fb3aa4362d6acd69059924.gif',
+          imageAlt: 'Custom image',
+          confirmButtonText: 'I understand',
+          confirmButtonColor: '#90B27A',
+        }).then((res) => {
+          if (res) {
+            setActiveStep(activeStep + 1);
+            actions.setTouched({});
+            actions.setSubmitting(false);
+          }
+        });
       }
     } else {
       setActiveStep(activeStep + 1);
@@ -149,9 +163,8 @@ const TabsCheckout = () => {
           </Stepper>
           <Fragment>
             {activeStep === steps.length ? (
-               <Confirmation />
+              <Confirmation />
             ) : (
-            
               <Formik
                 initialValues={formInitialValues}
                 validationSchema={currentValidationSchema}
@@ -185,11 +198,10 @@ const TabsCheckout = () => {
                         )}
                       </div>
                     </div>
-                
                   </Form>
                 )}
               </Formik>
-        )}
+            )}
           </Fragment>
         </Paper>
         <Copyright />

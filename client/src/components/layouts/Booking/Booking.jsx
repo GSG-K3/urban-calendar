@@ -94,7 +94,7 @@ const Booking = (props) => {
   // specify the time slot labels and values when shown on radio buttons
   const TimeSlotData = (timeSlot, reservationDate) =>
     timeSlot.map((time) => ({
-      value: time.id +'@' + reservationDate + '@' + time.time_slot,
+      value: time.id + '@' + reservationDate + '@' + time.time_slot,
       label: time.time_slot,
     }));
 

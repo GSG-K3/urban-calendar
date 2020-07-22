@@ -37,6 +37,11 @@ const useStyles = makeStyles((theme) => ({
     top: '50%',
     left: '50%',
   },
+  text: {
+    marginTop: theme.spacing(1),
+    marginLeft: theme.spacing(6),
+    background: '#7CD1F9',
+  },
 }));
 
 export default useStyles;
