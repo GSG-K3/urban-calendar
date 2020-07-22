@@ -2,7 +2,7 @@ const nodemailer = require('nodemailer');
 
 const { GMAIL_USER, GMAIL_PASS } = process.env;
 
-async function mailing(fullName, email, reservationDate, reservationTime) {
+const mailing = async (fullName, email, reservationDate, reservationTime) => {
   const htmlEmail = `
   <img src="https://d.top4top.io/p_1664jm2qu1.png%E2%80%8E%E2%80%8F">
   <h3>${fullName}, Welcome to our store.</h3>
@@ -36,6 +36,6 @@ async function mailing(fullName, email, reservationDate, reservationTime) {
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 module.exports = mailing;
