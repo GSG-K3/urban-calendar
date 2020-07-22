@@ -46,11 +46,9 @@ const TabsCheckout = () => {
   const currentValidationSchema = validationSchema[activeStep];
 
   const isLastStep = activeStep === steps.length - 1;
-  // const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   // when the user reaches the last step of checkout and submit the form
   const submitForm = async (values, actions) => {
-    // await sleep(1000);
     // form fields values that comes from each form in each tab
     const { fullName, phone, email, zipCode, reservationTime } = values;
 
