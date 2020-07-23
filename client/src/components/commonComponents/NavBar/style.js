@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
   blogImg: {
     width: '220px',
+    padding: 10,
   },
   homeLink: {
     textDecoration: 'none',
@@ -49,27 +50,18 @@ const useStyles = makeStyles((theme) => ({
       textDecoration: 'underline',
     },
   },
-  pagePath: {
-    marginLeft: '20px',
+  titles: {
     display: 'flex',
-    justifyContent: 'center',
-    [theme.breakpoints.up(600)]: {
-      marginLeft: '80px',
-      marginTop: '10px',
-      justifyContent: 'flex-start',
-    },
+    flexDirection: 'column',
+    marginLeft: 80,
+    [theme.breakpoints.down(600)]: { marginLeft: 20 },
+  },
+  pagePath: {
+    [theme.breakpoints.down(600)]: { fontSize: 11 },
   },
   description: {
-    display: 'flex',
-    justifyContent: 'center',
-    textAlign: 'center',
-    marginLeft: '20px',
-    [theme.breakpoints.up(600)]: {
-      marginLeft: '80px',
-      display: 'flex',
-      justifyContent: 'flex-start',
-      textAlign: 'left',
-    },
+    fontSize: 25,
+    [theme.breakpoints.down(600)]: { fontSize: 15 },
   },
 }));
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Button, Grid } from '@material-ui/core';
+import { Typography, Button, Box } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import footer from '../../../assets/footer.svg';
 import image from '../../../assets/image.svg';
@@ -9,28 +9,28 @@ const LandingPage = () => {
   const classes = useStyles();
   return (
     <div>
-      <Grid item xs={12}>
-        <div className={classes.landingContainer}>
-          <div className={classes.landingContent}>
-            <Typography className={classes.description}>
-              To prevent the spread of COVID-19 and reduce the potential risk of
-              exposure to our staff and visitors, all visitors must complete an
-              intake form before booking an appointment.To begin this quick and
-              easy process, click Book Appointment below.
-            </Typography>
-            <Link to="/guideline" className={classes.link}>
-              <Button
-                variant="contained"
-                color="primary"
-                className={classes.bookappointment}
-              >
-                Book an Appointment
-              </Button>
-            </Link>
-          </div>
-          <img src={image} className={classes.landingImg} alt="landing" />
-        </div>
-      </Grid>
+      <Box className={classes.landingContainer}>
+        <Box className={classes.landingContent}>
+          <Typography className={classes.description}>
+            As the lockdown and corona-virus begin to subside in New Jersey, We
+            are looking to re-open our showroom with half capacity. To prevent
+            the spread of COVID-19 and reduce the potential risk of exposure to
+            our staff and visitors, all visitors must complete an intake form
+            before booking an appointment. To begin this quick and easy process,
+            click BOOK A VISIT below.
+          </Typography>
+          <Link to="/guideline" className={classes.link}>
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.bookappointment}
+            >
+              BOOK A VISIT
+            </Button>
+          </Link>
+        </Box>
+        <img src={image} className={classes.landingImg} alt="landing" />
+      </Box>
 
       <img src={footer} className={classes.footer} alt="footer" />
     </div>
