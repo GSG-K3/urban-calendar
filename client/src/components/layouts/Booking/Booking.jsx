@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import InfiniteCalendar from 'react-infinite-calendar';
 import 'react-infinite-calendar/styles.css';
-import { Box, CircularProgress, Typography, Link } from '@material-ui/core';
+import { Box, CircularProgress, Typography } from '@material-ui/core';
 import moment from 'moment';
 import axios from 'axios';
 import RadioButton from '../../commonComponents/TabsCheckout/FormFields/Radio';
 import exceptions from './exceptedDays';
+import style from './style';
 
 const { today, blockedWeeks, maxDate, publicHolidays } = exceptions;
 const Booking = (props) => {
@@ -16,6 +17,7 @@ const Booking = (props) => {
   const fullReservedDays = [];
   const storeTimeIds = {};
   const storeAvailableTimeSlots = {};
+  const classes = style();
 
   const {
     formField: { reservationTime },
@@ -122,71 +124,46 @@ const Booking = (props) => {
         <CircularProgress size={24} />
       ) : (
         <Box display="flex" flexDirection="column">
-          <Typography variant="h6">Please Select a date: </Typography>
-          <InfiniteCalendar
-            width={400}
-            height={300}
-            shouldHeaderAnimate={true}
-            disabledDays={[0, 2]}
-            disabledDates={[...publicHolidays, ...fullReservedDays]}
-            minDate={covidAnswer === 'yes' ? blockedWeeks : today}
-            min={today} // Minimum rendered month
-            max={maxDate} // Maximum rendered month
-            selected={covidAnswer === 'yes' ? blockedWeeks : today}
-            onSelect={getAvailableTimeSlots}
-            theme={{
-              selectionColor: '#90B27A',
-              textColor: {
-                default: '#333',
-                active: '#FFF',
-              },
-              weekdayColor: '#90B27A',
-              headerColor: '#90B27A',
-              floatingNav: {
-                background: '#90B27A',
-                color: '#FFF',
-                chevron: '#FFA726',
-              },
-            }}
-          />
-
-          {availableTimeSlots && (
+          <Box className={classes.calendarContainer}>
             <Box>
-              <Typography variant="h6">Please Select a Time Slot: </Typography>
-              <RadioButton
-                name={reservationTime.name}
-                label={reservationTime.label}
-                data={availableTimeSlots}
+              <Typography variant="h6">Please Select a date: </Typography>
+              <InfiniteCalendar
+                width={window.innerWidth <= 600 ? 300 : 650}
+                height={300}
+                shouldHeaderAnimate={true}
+                disabledDays={[0, 2]}
+                disabledDates={[...publicHolidays, ...fullReservedDays]}
+                minDate={covidAnswer === 'yes' ? blockedWeeks : today}
+                min={today} // Minimum rendered month
+                max={maxDate} // Maximum rendered month
+                selected={covidAnswer === 'yes' ? blockedWeeks : today}
+                onSelect={getAvailableTimeSlots}
+                theme={{
+                  selectionColor: '#90B27A',
+                  textColor: {
+                    default: '#333',
+                    active: '#FFF',
+                  },
+                  weekdayColor: 'rgb(144, 178, 122,0.9)',
+                  headerColor: '#90B27A',
+                  floatingNav: {
+                    background: '#90B27A',
+                    color: '#FFF',
+                    chevron: '#FFA726',
+                  },
+                }}
               />
             </Box>
-          )}
-          <Box>
-            <Typography variant="h5" gutterBottom>
-              Our health and safety rules
-            </Typography>
-            <Typography variant="subtitle1">
-              <li>
-                All visitors must wear face masks before entering the building.
-              </li>
-            </Typography>
-
-            <Typography variant="subtitle1">
-              <li>
-                No more than 3 People allowed to be in the showroom at once.
-              </li>
-            </Typography>
-            <Typography variant="subtitle1">
-              <li>
-                Make sure to follow the
-                <Link
-                  color="inherit"
-                  href="https://www.redcross.org/get-help/how-to-prepare-for-emergencies/types-of-emergencies/coronavirus-safety.html"
-                >
-                  {' '}
-                  American Red Cross Instuctions of safety.
-                </Link>
-              </li>
-            </Typography>
+            {availableTimeSlots && (
+              <Box className={classes.timeslots}>
+                <Typography variant="h6">Please Select a Time Slot:</Typography>
+                <RadioButton
+                  name={reservationTime.name}
+                  label={reservationTime.label}
+                  data={availableTimeSlots}
+                />
+              </Box>
+            )}
           </Box>
         </Box>
       )}
