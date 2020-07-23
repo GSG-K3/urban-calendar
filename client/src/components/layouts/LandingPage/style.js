@@ -2,58 +2,52 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
   description: {
-    width: '80%',
-    fontFamily: 'Quicksand',
-    fontSize: '15px',
+    marginLeft: 80,
+    fontSize: 19,
+    width: '70%',
     textAlign: 'justify',
-    [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
-      fontSize: '20px',
-    },
+
+    [theme.breakpoints.down(950)]: { fontSize: 15, marginLeft: 0 },
   },
   landingContent: {
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    marginBottom: '15px',
-    marginTop: '23px',
-    [theme.breakpoints.up(950 + theme.spacing(2) * 2)]: {
-      marginLeft: '1rem',
-      marginRight: '7rem',
-      marginBottom: '5rem',
-      marginTop: '1rem',
-    },
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    marginBottom: 15,
+    marginTop: 20,
+    [theme.breakpoints.down(950)]: { alignItems: 'center', marginTop: 10 },
   },
   link: {
     color: '#90B27A',
   },
   landingContainer: {
+    marginTop: 20,
+    marginBottom: 20,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    [theme.breakpoints.up(950 + theme.spacing(2) * 2)]: {
+    [theme.breakpoints.up(950)]: {
       display: 'flex',
       flexDirection: 'row',
+      alignItems: 'flex-start',
     },
   },
   landingImg: {
-    width: '60%',
-    marginTop: '10px',
-    marginBottom: '20px',
-    [theme.breakpoints.up(950 + theme.spacing(2) * 2)]: {
-      marginRight: '20px',
+    width: '70%',
+
+    [theme.breakpoints.up(950)]: {
+      marginRight: '60px',
       width: '40%',
     },
   },
   bookappointment: {
-    position: 'initial',
     marginTop: '20px',
-    [theme.breakpoints.up(950 + theme.spacing(2) * 2)]: {
-      marginLeft: '2rem',
-      marginRight: '20rem',
-      marginTop: '30px',
-    },
+    alignSelf: 'center',
+    marginLeft: 80,
+
+    [theme.breakpoints.down(950)]: { marginLeft: 0 },
   },
   footer: {
     width: '100%',
