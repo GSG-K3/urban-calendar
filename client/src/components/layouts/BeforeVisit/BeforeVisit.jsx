@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Typography } from '@material-ui/core';
+import { Typography, Box } from '@material-ui/core';
 import style from './style';
 import MyRadio from '../../commonComponents/TabsCheckout/FormFields/Radio';
 import MyCheckbox from '../../commonComponents/TabsCheckout/FormFields/Checkbox';
@@ -35,34 +35,37 @@ const BeforeVisit = (props) => {
 
   return (
     <Fragment>
-      <Typography variant="h5">Before visit</Typography>
-      <Typography variant="h6">
-        1- Would you like to reserve a virtual appointment or in person?
+      <Box pb={2}>
+        <Typography variant="h5">Before Visit</Typography>
+      </Box>
+      <Typography variant="subtitle2">
+        1. Would you like to reserve a virtual appointment or in person?
       </Typography>
       <MyRadio
         data={appointmentOption}
         name={appointmentType.name}
         label={appointmentType.label}
-        className={classes.formControl}
+        className={classes.radio}
       />
-      <Typography variant="h6" gutterBottom>
-        2- What are you interested in viewing? Select all that apply
+      <Typography variant="subtitle2" gutterBottom>
+        2. What are you interested in viewing?{' '}
+        <small>select all that apply</small>
       </Typography>
       <MyCheckbox
         data={furnitureSector}
         name={product.name}
         label={product.label}
-        className={classes.formControl}
+        className={classes.checkBox}
       />
-      <Typography variant="h6" gutterBottom>
-        3- Have you been in contact within the last 14 days with anyone who has
-        experienced any covidQuestion symptoms?
+      <Typography variant="subtitle2" gutterBottom>
+        3. Have you been in contact within the last 14 days with anyone who has
+        experienced any COVID-19 symptoms?
       </Typography>
       <MyRadio
         data={covidQuestion}
         name={covid19.name}
         label={covid19.label}
-        className={classes.formControl}
+        className={classes.radio}
       />
     </Fragment>
   );
