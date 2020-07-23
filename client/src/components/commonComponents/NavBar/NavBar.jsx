@@ -153,13 +153,14 @@ const NavBar = () => {
           })}
         </Box>
       </List>
-      <Typography variant="caption" className={classes.pagePath}>
-        Home / Book an Appointment to Visit Our Showroom
-      </Typography>
-      <Typography variant="h4" className={classes.description}>
-        Book an Appointment to Visit Our Showroom
-      </Typography>
-
+      <Box className={classes.titles}>
+        <Typography variant="caption" className={classes.pagePath}>
+          Home / Book an Appointment to Visit Our Showroom
+        </Typography>
+        <Typography className={classes.description}>
+          Book an Appointment to Visit Our Showroom
+        </Typography>
+      </Box>
       <Divider variant="middle" />
     </div>
   );
