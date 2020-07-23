@@ -144,7 +144,7 @@ const Booking = (props) => {
                     default: '#333',
                     active: '#FFF',
                   },
-                  weekdayColor: '#90B27A',
+                  weekdayColor: 'rgb(144, 178, 122,0.9)',
                   headerColor: '#90B27A',
                   floatingNav: {
                     background: '#90B27A',
