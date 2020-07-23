@@ -61,27 +61,16 @@ const TabsCheckout = () => {
     });
     swalWithBootstrapButtons
       .fire({
-        imageUrl:
-          'https://www.southislandmsa.ca/wp-content/uploads/2018/03/calendar-flat-icon-01-.jpg',
-        imageHeight: 100,
-        imageWidth: 150,
-        imageAlt: 'calendar image',
-        title: 'Are you sure?',
-        text: `Your Appointment will be on ${
-          dateInfo[1]
-        } at ${dateInfo[2].slice(0, 5)}`, // slice used to get the date as hh:mm and remove the seconds
+        icon: 'success',
+        title: 'Your Appointment is on',
+        html: `${dateInfo[1]} at ${dateInfo[2].slice(0, 5)} <br/>
+        Are you sure?`, // slice used to get the date as hh:mm and remove the seconds
         showCancelButton: true,
         confirmButtonText: 'Confirm',
         cancelButtonText: 'Cancel',
         confirmButtonColor: '#90B27A',
         cancelButtonColor: '#FF7171',
         reverseButtons: true,
-        showClass: {
-          popup: 'animate__animated animate__fadeInDown',
-        },
-        hideClass: {
-          popup: 'animate__animated animate__fadeOutUp',
-        },
       })
       .then((result) => {
         if (result.value) {
@@ -130,9 +119,7 @@ const TabsCheckout = () => {
           hideClass: {
             popup: 'animate__animated animate__fadeOutUp',
           },
-          imageUrl:
-            ' https://cdn.dribbble.com/users/3691882/screenshots/11018522/media/0047aad1a6fb3aa4362d6acd69059924.gif',
-          imageAlt: 'Custom image',
+          icon: 'warning',
           confirmButtonText: 'I understand',
           confirmButtonColor: '#90B27A',
         }).then((res) => {
