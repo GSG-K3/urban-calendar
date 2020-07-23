@@ -10,8 +10,14 @@ const mailing = async (fullName, email, reservationDate, reservationTime) => {
   Want to make any updates on your reservation time/date? Call us at (201) 330-1212<br/>
   Monday – Saturday, 10:00am – 6:00pm EST.<br/>
   Sundays, 12:00pm – 5:00pm EST <br/> 
+  Our health and safety rules: <br/>
+  <li>
+  All visitors must wear face masks before entering the building.
+</li>
+<li>
+No more than 3 People allowed to be in the showroom at once.
+</li>
   `;
-
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     secure: true,
