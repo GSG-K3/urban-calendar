@@ -99,7 +99,7 @@ $ node server/database/dbBuild.js
 - [Node js](https://nodejs.org/en/)
 - [Express](https://expressjs.com/)
 - [PostgreSQL](https://www.postgresql.org/)
-- [nodemailer](https://nodemailer.com)
+- [Nodemailer](https://nodemailer.com)
 
 ## Working Group
 
