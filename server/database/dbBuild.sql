@@ -19,16 +19,4 @@ CREATE TABLE customer_info(
 
 );
 
-
-    INSERT INTO reservation_time
-        (time_slot)
-    VALUES
-        ('10:00'),
-        ('12:00'),
-        ('14:00'),
-        ('16:00');
-  --example     
-INSERT INTO customer_info(full_name, phone, email,zip_code,reservation_date,time_id) VALUES ('mega','05987648','mega90@gmail.com','12345','2020-06-25',1) ;
-
-
 COMMIT;
