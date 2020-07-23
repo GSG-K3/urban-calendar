@@ -15,9 +15,9 @@ const theme = createMuiTheme({
     fontFamily: '"Montserrat",cursive',
     letterSpacing: '0.0075em',
     lineHeight: '1.6',
+
     h5: {
       fontSize: '1.30rem',
-      fontWeight: 'bold',
     },
     body1: {
       fontSize: '0.9rem',
