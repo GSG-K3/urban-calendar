@@ -7,13 +7,13 @@ import {
   Typography,
   Button,
   Paper,
-  Grid,
+  Box,
 } from '@material-ui/core';
 import useStyles from './style';
 
 const getSteps = () => [
   'Basic contact info',
-  'Questionnaire',
+  'Before visit questions',
   'Pick date and time',
 ];
 const Guideline = () => {
@@ -23,20 +23,17 @@ const Guideline = () => {
   return (
     <main className={classes.layout}>
       <Paper elevation={10} className={classes.paper}>
-        <div className={classes.root}>
-          <Grid item xs={12}>
+        <Box className={classes.root}>
+          <Box className={classes.titles}>
             <Typography className={classes.header}>
               We’ll take you through our 3-step booking process
             </Typography>
-          </Grid>
-          <Grid item xs={12}>
             <Typography className={classes.description}>
               To prevent the spread of COVID-19 and reduce the potential risk of
               exposure to our staff and visitors. we will take through this very
               quick process.
             </Typography>
-          </Grid>
-
+          </Box>
           <Stepper activeStep={-1} orientation="vertical">
             {steps.map((label) => (
               <Step key={label}>
@@ -51,12 +48,12 @@ const Guideline = () => {
               </Step>
             ))}
           </Stepper>
-          <Button variant="contained" className={classes.button}>
-            <Link to="/reservation" className={classes.startLink}>
+          <Link to="/reservation" className={classes.startLink}>
+            <Button variant="contained" className={classes.button}>
               START
-            </Link>
-          </Button>
-        </div>
+            </Button>
+          </Link>
+        </Box>
       </Paper>
     </main>
   );
