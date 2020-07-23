@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Grid } from '@material-ui/core';
+import { Typography, Grid, Box } from '@material-ui/core';
 import InputField from '../../commonComponents/TabsCheckout/FormFields/InputField';
 
 const ContactInfo = (props) => {
@@ -8,9 +8,11 @@ const ContactInfo = (props) => {
   } = props;
   return (
     <React.Fragment>
-      <Typography variant="h6" gutterBottom>
-        Contact Information
-      </Typography>
+      <Box pb={1}>
+        <Typography variant="h5" gutterBottom>
+          Contact Information
+        </Typography>
+      </Box>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <InputField
