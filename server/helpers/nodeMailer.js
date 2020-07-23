@@ -2,12 +2,15 @@ const nodemailer = require('nodemailer');
 
 const { GMAIL_USER, GMAIL_PASS } = process.env;
 
-async function mailing(fullName, email, reservationDate) {
-  const htmlEmail = `<h3>Thank you for reserving in our Store..👻</h3>
-  <p><b>${fullName}</b> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-  <ul>
-  <li>your reservation Date is: ${reservationDate}</li>
-  </ul>`;
+const mailing = async (fullName, email, reservationDate, reservationTime) => {
+  const htmlEmail = `
+  <img src="https://d.top4top.io/p_1664jm2qu1.png%E2%80%8E%E2%80%8F">
+  <h3>${fullName}, Welcome to our store.</h3>
+  <strong>Your reservation appointment would be at: ${reservationDate}- ${reservationTime} EST</strong><br/>
+  Want to make any updates on your reservation time/date? Call us at (201) 330-1212<br/>
+  Monday – Saturday, 10:00am – 6:00pm EST.<br/>
+  Sundays, 12:00pm – 5:00pm EST <br/> 
+  `;
 
   const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -26,13 +29,13 @@ async function mailing(fullName, email, reservationDate) {
       date: new Date(),
       from: 'Urban-natural@gmail.com',
       to: email,
-      subject: 'Confirmation Reservation ✔', // Email Subject
+      subject: 'Confirm Reservation ✔', // Email Subject
       text: 'Thank you for reserving', // plain text body
       html: htmlEmail, // html body
     });
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 module.exports = mailing;
