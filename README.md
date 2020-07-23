@@ -62,7 +62,7 @@ git clone https://github.com/GSG-K3/urban-calendar.git
  $ cd ..
 
 ```
-- create database locally:
+- create database locally: 
 
 ```shell
 $ psql
