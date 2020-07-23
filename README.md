@@ -41,7 +41,7 @@ For Customers:
 
 ## Database schema
 
-![db_schema](https://user-images.githubusercontent.com/55299644/87243171-6d5b4000-c43c-11ea-86e1-f55225471f4a.png)
+![image](https://user-images.githubusercontent.com/55299644/88175498-98107a00-cc2e-11ea-8fcd-de5cf2917ad0.png)
 
 
 ## How to run the project?
@@ -85,18 +85,21 @@ $ node server/database/dbBuild.js
 ```shell
  $ npm run dev
  ```
+
 ## Used technologies:
 
 **Front End**:
 
 - [React Framework](https://reactjs.org/)
 - [Material UI](https://material-ui.com/)
+- [Formik](https://www.thoughtworks.com/radar/languages-and-frameworks/formik)
 
 **Back End**:
 
 - [Node js](https://nodejs.org/en/)
 - [Express](https://expressjs.com/)
 - [PostgreSQL](https://www.postgresql.org/)
+- [nodemailer](https://nodemailer.com)
 
 ## Working Group
 
