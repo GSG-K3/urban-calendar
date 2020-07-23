@@ -25,6 +25,7 @@ const RadioButton = (props) => {
               value={item.value}
               as={Checkbox}
               name={fieldName}
+              color="primary"
             />
             {item.label}
           </label>

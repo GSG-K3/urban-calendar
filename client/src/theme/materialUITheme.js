@@ -26,6 +26,10 @@ const theme = createMuiTheme({
       fontSize: '1.19rem',
       fontWeight: 500,
     },
+    subtitle2: {
+      fontSize: '1.15rem',
+      fontWeight: 400,
+    },
   },
 });
 
